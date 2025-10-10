@@ -1,0 +1,7 @@
+<article
+  class="max-w-9/12 p-4 grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-4"
+>
+  @for (product of productsResource.value()?.items; track $index) {
+    <product-card [product]="product" ></product-card>   
+  }
+</article>

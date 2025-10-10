@@ -1,0 +1,73 @@
+import { inject, Injectable, signal } from '@angular/core';
+import { environment } from '../../../../../environments/environment';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  httpResource,
+} from '@angular/common/http';
+import {
+  Product,
+  ProductCreate,
+  ProductsResponse,
+  ProductUpdate,
+} from '../../../../core/models/product.model';
+import { catchError, tap } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class ProductsService {
+  private readonly http = inject(HttpClient);
+  private readonly apiUrl = `${environment.API_URL}/products`;
+  private isLoading = signal<boolean>(false);
+  private hasError = signal<string | null>(null);
+
+  private limit = signal(10);
+  private offset = signal(0);
+
+  productsResource = httpResource<ProductsResponse>(
+    () => `${this.apiUrl}?limit=${this.limit()}&offset=${this.offset()}`
+  );
+
+  getProductById(id: string) {
+    return httpResource<Product>(() => `${this.apiUrl}/${id}`);
+  }
+
+  createProduct(data: ProductCreate) {
+    this.isLoading.set(true);
+    this.hasError.set(null);
+    return this.http.post<Product>(`${this.apiUrl}`, data).pipe(
+      tap(() => this.isLoading.set(false)),
+      catchError((error: HttpErrorResponse) => {
+        this.hasError.set(error.error.message || 'Error creating product');
+        this.isLoading.set(false);
+        throw error;
+      })
+    );
+  }
+
+  updateProduct(id: string, data: ProductUpdate) {
+    this.isLoading.set(true);
+    this.hasError.set(null);
+    return this.http.patch<Product>(`${this.apiUrl}/${id}`, data).pipe(
+      tap(() => this.isLoading.set(false)),
+      catchError((error: HttpErrorResponse) => {
+        this.hasError.set(error.error.message || 'Error updating product');
+        this.isLoading.set(false);
+        throw error;
+      })
+    );
+  }
+  deleteProduct(id: string) {
+    this.isLoading.set(true);
+    this.hasError.set(null);
+    return this.http.delete(`${this.apiUrl}/${id}`).pipe(
+      tap(() => this.isLoading.set(false)),
+      catchError((error: HttpErrorResponse) => {
+        this.hasError.set(error.error.message || 'Error deleting product');
+        this.isLoading.set(false);
+        throw error;
+      })
+    );
+  }
+}

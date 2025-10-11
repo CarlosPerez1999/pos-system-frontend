@@ -14,7 +14,7 @@
           />
         </svg>
       </span>
-      <p class="text-lg font-bold">Cart(8)</p>
+      <p class="text-lg font-bold">Cart({{cartItems().length}})</p>
     </div>
     <app-button variant="destructive" (clickEmitter)="clearCart()" size="icon">
       <span icon-left>
@@ -32,7 +32,7 @@
       </span>
     </app-button>
   </header>
-  <main class="flex flex-col gap-2 max-h-80 overflow-y-auto">
+  <main class="flex flex-col gap-2 max-h-80 overflow-y-auto scrollbar-hide">
     @for (item of cartItems(); track $index) {
     <sales-cart-item [item]="item"></sales-cart-item>
     }

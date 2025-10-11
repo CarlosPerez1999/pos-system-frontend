@@ -1,1 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap");
 @import "tailwindcss";
+
+@theme {
+  --color-background: #e4e4e7;
+  --color-foreground: #38383b;
+  --color-surface: #f6f6f9;
+  --font-jura: "Jura", sans-serif;
+}
+
+@layer base {
+  :root[data-theme="dark"] {
+    --color-background: #38383b;
+    --color-foreground: #e4e4e7;
+    --color-surface: #4c4c4f;
+  }
+}
+
+html,
+body {
+  @apply bg-background text-foreground font-jura;
+}

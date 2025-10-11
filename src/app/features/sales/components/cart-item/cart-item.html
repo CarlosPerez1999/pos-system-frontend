@@ -1,0 +1,100 @@
+<div class="flex items-center gap-4">
+  <div class="size-16">
+    @if(item().product.imageUrl){
+    <img
+      class="w-full h-full object-cover"
+      [src]="item().product.imageUrl"
+      alt=""
+    />
+    }@else {
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="100%"
+      height="100%"
+      fill="currentColor"
+      viewBox="0 0 24 24"
+      class="text-zinc-400"
+    >
+      <path
+        fill="currentColor"
+        d="M11 21.725v-9.15L3 7.95v8.025q0 .55.263 1T4 17.7zm2 0l7-4.025q.475-.275.738-.725t.262-1V7.95l-8 4.625zm3.975-13.75l2.95-1.725L13 2.275Q12.525 2 12 2t-1 .275L9.025 3.4zM12 10.85l2.975-1.7l-7.925-4.6l-3 1.725z"
+      />
+    </svg>
+    }
+  </div>
+
+  <div class="flex flex-col">
+    <div class="flex justify-between items-start gap-4">
+      <h4 class="font-bold line-clamp-2">{{ item().product.name }}</h4>
+      <app-button
+        (clickEmitter)="cartService.clearProduct(item().product)"
+        variant="ghost"
+        size="icon"
+      >
+        <span icon-left>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+          >
+            <path
+              fill="currentColor"
+              d="m12 13.4l-4.9 4.9q-.275.275-.7.275t-.7-.275t-.275-.7t.275-.7l4.9-4.9l-4.9-4.9q-.275-.275-.275-.7t.275-.7t.7-.275t.7.275l4.9 4.9l4.9-4.9q.275-.275.7-.275t.7.275t.275.7t-.275.7L13.4 12l4.9 4.9q.275.275.275.7t-.275.7t-.7.275t-.7-.275z"
+            />
+          </svg>
+        </span>
+      </app-button>
+    </div>
+
+    <div class="flex justify-between items-center mt-2">
+      <p>{{ item().product.price | currency }}</p>
+
+      <div class="flex items-center justify-between gap-4">
+        <app-button
+          [disabled]="item().quantity <= 0"
+          (clickEmitter)="cartService.removeProduct(item().product)"
+          variant="ghost"
+          size="icon"
+        >
+          <span icon-left>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M6 13q-.425 0-.712-.288T5 12t.288-.712T6 11h12q.425 0 .713.288T19 12t-.288.713T18 13z"
+              />
+            </svg>
+          </span>
+        </app-button>
+
+        <p class="text-lg font-bold">{{ item().quantity }}</p>
+
+        <app-button
+          [disabled]="item().quantity >= item().product.stock"
+          (clickEmitter)="cartService.addProduct(item().product)"
+          variant="ghost"
+          size="icon"
+        >
+          <span icon-left>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="currentColor"
+                d="M12 21q-.425 0-.712-.288T11 20v-7H4q-.425 0-.712-.288T3 12t.288-.712T4 11h7V4q0-.425.288-.712T12 3t.713.288T13 4v7h7q.425 0 .713.288T21 12t-.288.713T20 13h-7v7q0 .425-.288.713T12 21"
+              />
+            </svg>
+          </span>
+        </app-button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -14,7 +14,7 @@ export class AppButton {
   clickEmitter = output();
 
   baseStyles = `
-  flex gap-2 justify-center items-center font-bold cursor-pointer rounded-lg  transition-color duration-300 
+  w-full flex gap-2 justify-center items-center font-bold cursor-pointer rounded-lg  transition-color duration-300 
   focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-0
   disabled:cursor-not-allowed disabled:opacity-60
   `;

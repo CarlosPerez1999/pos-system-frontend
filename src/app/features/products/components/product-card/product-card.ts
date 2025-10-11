@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { Product } from '../../../../../core/models/product.model';
+import { Product } from '../../../../core/models/product.model';
 import { CurrencyPipe } from '@angular/common';
 
 @Component({

@@ -1,5 +1,5 @@
 <article
-  class="w-full p-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
+  class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
 >
   @for (product of productsResource.value()?.items; track $index) {
     <product-card [product]="product" ></product-card>   

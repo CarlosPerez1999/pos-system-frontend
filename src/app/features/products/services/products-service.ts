@@ -1,5 +1,4 @@
 import { inject, Injectable, signal } from '@angular/core';
-import { environment } from '../../../../../environments/environment';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -10,8 +9,9 @@ import {
   ProductCreate,
   ProductsResponse,
   ProductUpdate,
-} from '../../../../core/models/product.model';
+} from '../../../core/models/product.model';
 import { catchError, tap } from 'rxjs';
+import { environment } from '../../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',

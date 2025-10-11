@@ -1,8 +1,8 @@
 <article
-  class="p-5 overflow-x-auto overflow-y-hidden sm:overflow-x-hidden sm:overflow-y-auto sm:max-h-[calc(2*15rem+1rem)]"
+  class="p-5 scrollbar-hide overflow-x-auto overflow-y-hidden sm:overflow-x-hidden sm:overflow-y-auto sm:max-h-[calc(2*15rem+1rem)]"
 >
   <div
-    class="grid grid-flow-col grid-rows-2 auto-cols-[150px] sm:auto-cols-auto sm:grid-rows-none sm:grid-flow-row sm:grid-cols-3 lg:grid-cols-4 gap-4 w-max sm:w-auto"
+    class=" grid grid-flow-col grid-rows-2 auto-cols-[150px] sm:auto-cols-auto sm:grid-rows-none sm:grid-flow-row sm:grid-cols-3 lg:grid-cols-4 gap-4 w-max sm:w-auto"
   >
     @for (product of productsResource.value()?.items; track $index) {
     <product-card [product]="product"></product-card>

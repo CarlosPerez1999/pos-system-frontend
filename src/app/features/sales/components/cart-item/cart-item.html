@@ -24,8 +24,8 @@
   </div>
 
   <div class="flex flex-col w-full">
-    <div class="flex justify-between items-start gap-4">
-      <h4 class="font-bold line-clamp-2">{{ item().product.name }}</h4>
+    <div class="flex justify-between items-start">
+      <h4 class="font-bold line-clamp-2 max-w-60">{{ item().product.name }}</h4>
       <app-button
         (clickEmitter)="cartService.clearProduct(item().product)"
         variant="ghost"
@@ -47,7 +47,7 @@
       </app-button>
     </div>
 
-    <div class="flex justify-between items-center mt-2">
+    <div class="flex justify-between items-center">
       <p>{{ item().product.price | currency }}</p>
 
       <div class="flex items-center justify-between gap-4">

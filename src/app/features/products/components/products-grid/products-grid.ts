@@ -12,4 +12,6 @@ export class ProductsGrid {
 
   productsResource = this.productsService.productsResource;
 
+  
+
 }

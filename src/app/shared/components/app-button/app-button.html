@@ -1,4 +1,4 @@
-<button [class]="styles" [disabled]="disabled()">
+<button [class]="styles" (click)="onClick()" [disabled]="disabled()">
   <ng-content select="[icon-left]"></ng-content>
   <ng-content select="[label]"></ng-content>
   <ng-content select="[icon-right]"></ng-content>

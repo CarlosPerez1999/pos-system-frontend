@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap");
 @import "tailwindcss";
+@import 'tailwind-scrollbar-hide/v4';
 
 @theme {
   --color-background: #e4e4e7;
@@ -18,5 +19,5 @@
 
 html,
 body {
-  @apply bg-background text-foreground font-jura;
+  @apply bg-background text-foreground font-jura transition-all transition-discrete;
 }

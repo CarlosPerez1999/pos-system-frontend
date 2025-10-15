@@ -14,7 +14,7 @@ export class AppButton {
   clickEmitter = output();
 
   baseStyles = `
-  w-full flex gap-2 justify-center items-center font-bold cursor-pointer rounded-lg  transition-color duration-300 
+  flex gap-2 justify-center items-center font-bold cursor-pointer rounded-lg  transition-color duration-300 
   focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-0
   disabled:cursor-not-allowed disabled:opacity-60
   `;
@@ -22,7 +22,7 @@ export class AppButton {
   variants: Record<ButtonVariant, string> = {
     primary: 'bg-blue-500 text-white shadow-md hover:bg-blue-600 ',
     secondary: 'ring-2 ring-zinc-300  hover:ring-blue-600 hover:bg-zinc-100',
-    ghost: 'hover:bg-background',
+    ghost: 'hover:text-foreground hover:bg-surface',
     destructive: 'bg-red-500 text-white shadow-md hover:bg-red-600',
     success: 'bg-green-500 text-white shadow-md hover:bg-green-600',
     danger: 'bg-amber-500 text-white shadow-md hover:bg-amber-600',
@@ -30,16 +30,18 @@ export class AppButton {
   };
 
   sizes: Record<ButtonSize, string> = {
-    icon: 'p-2.5 size-10',
+    icon: 'p-2.5 size-8 aspect-square',
     sm: 'py-1.5 px-3 text-sm',
     md: 'py-2 px-4 text-base',
     lg: 'py-3 px-6 text-lg',
   };
 
   get styles(): string {
-    return `${this.baseStyles} ${this.variants[this.variant()]} ${
-      this.sizes[this.size()]
-    } `;
+    const sizeClass = this.sizes[this.size()];
+    const fullWidth = sizeClass !== this.sizes.icon ? 'w-full' : '';
+    return `${this.baseStyles} ${fullWidth} ${
+      this.variants[this.variant()]
+    } ${sizeClass}`;
   }
 
   onClick() {

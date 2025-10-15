@@ -37,6 +37,7 @@
       <span label>Cancel</span>
     </app-button>
     <app-button
+      (clickEmitter)="confirmSale()"
       [disabled]="customerPayment() < cartService.total()"
       size="md"
       class="w-full"

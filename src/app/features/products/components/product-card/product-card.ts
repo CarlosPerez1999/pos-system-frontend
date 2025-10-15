@@ -14,6 +14,5 @@ export class ProductCard {
 
   addProductToCart() {
     this.cartService.addProduct(this.product());
-    console.log(this.cartService.getProducts());
   }
 }

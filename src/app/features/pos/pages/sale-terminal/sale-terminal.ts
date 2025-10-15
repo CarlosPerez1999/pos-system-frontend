@@ -37,11 +37,13 @@ export class SaleTerminal {
 
   confirmSale() {
     const products = this.cartService.getProducts();
+    const payment = this.customerPayment();
 
     this.salesService.createSale(products()).subscribe({
       next: () => {
         this.customerPayment.set(0);
         this.modalService.closeModal('sale-confirmation');
+        this.cartService.clearCart();
       },
       error: (err) => {
         console.error('Error creating sale:', err);
@@ -49,8 +51,15 @@ export class SaleTerminal {
     });
   }
 
+  canConfirmSale = computed(() => {
+    const payment = this.customerPayment();
+    const total = this.cartService.total();
+
+    return !isNaN(payment) && payment >= total;
+  });
+
   cancelSale() {
-    this.customerPayment.set(0);
+    this.customerPayment.set(NaN);
     this.modalService.closeModal('sale-confirmation');
   }
 }

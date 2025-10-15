@@ -6,3 +6,43 @@
     <sales-shopping-cart class="lg:w-4/12"></sales-shopping-cart>
   </div>
 </section>
+
+<app-modal modalId="sale-confirmation" title="Sale Confirmation" type="info">
+  <span content>
+    <p class="flex justify-between">
+      Total to pay: <span>{{ cartService.total() | currency }}</span>
+    </p>
+    <label class="relative flex justify-between" for=""
+      >Customer Payment:
+      <span class="absolute right-15 text-zinc-400">$</span>
+      <input
+        [(ngModel)]="customerPayment"
+        class="w-20 text-right rounded-md bg-surface"
+        type="number"
+      />
+    </label>
+    <p
+      class="flex justify-between items-end text-green-500 mt-2 text-xl sm:text-2xl"
+    >
+      Change to return: <span>{{ calculateChange() | currency }}</span>
+    </p>
+  </span>
+  <span footer class="w-full flex justify-center gap-4 mt-2">
+    <app-button
+      class="w-full"
+      size="md"
+      variant="destructive"
+      (clickEmitter)="cancelSale()"
+    >
+      <span label>Cancel</span>
+    </app-button>
+    <app-button
+      [disabled]="customerPayment() < cartService.total()"
+      size="md"
+      class="w-full"
+      variant="primary"
+    >
+      <span label>Confirm</span>
+    </app-button>
+  </span>
+</app-modal>

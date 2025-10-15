@@ -7,19 +7,28 @@
   </div>
 </section>
 
-<app-modal modalId="sale-confirmation" title="Sale Confirmation" type="info">
+<app-modal
+  (onClose)="cancelSale()"
+  modalId="sale-confirmation"
+  title="Sale Confirmation"
+  type="success"
+>
   <span content>
     <p class="flex justify-between">
       Total to pay: <span>{{ cartService.total() | currency }}</span>
     </p>
-    <label class="relative flex justify-between" for=""
+    <label class="relative flex justify-between gap-8" for=""
       >Customer Payment:
-      <span class="absolute right-15 text-zinc-400">$</span>
-      <input
-        [(ngModel)]="customerPayment"
-        class="w-20 text-right rounded-md bg-surface"
-        type="number"
-      />
+      <div class="relative">
+        <span class="absolute left-2 top-1/2 -translate-y-1/2 text-zinc-400"
+          >$</span
+        >
+        <input
+          [(ngModel)]="customerPayment"
+          type="number"
+          class="pl-6 w-30 text-right rounded-md bg-surface"
+        />
+      </div>
     </label>
     <p
       class="flex justify-between items-end text-green-500 mt-2 text-xl sm:text-2xl"
@@ -38,7 +47,7 @@
     </app-button>
     <app-button
       (clickEmitter)="confirmSale()"
-      [disabled]="customerPayment() < cartService.total()"
+      [disabled]="!canConfirmSale()"
       size="md"
       class="w-full"
       variant="primary"

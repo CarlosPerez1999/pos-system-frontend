@@ -1,0 +1,46 @@
+@if (modalService.isOpen(modalId())) {
+<div
+  class="fixed w-full h-dvh flex inset-0 justify-center items-center bg-black/40 backdrop-blur-xs"
+  (click)="modalService.closeModal(modalId())"
+>
+  <article
+    class="max-w-lg min-w-2xs sm:min-w-sm rounded-lg bg-background"
+    (click)="$event.stopPropagation()"
+  >
+    <div class="rounded-t-lg text-zinc-200" [ngClass]="titleStyle()">
+      <div class="w-full flex justify-between items-center px-4 py-2 shadow-md">
+        <h5 class="flex-1 text-2xl font-bold">{{ title() }}</h5>
+        <app-button
+          class=""
+          size="icon"
+          variant="ghost"
+          (clickEmitter)="modalService.closeModal(modalId())"
+        >
+          <span icon-left>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="2em"
+              height="2em"
+              viewBox="0 0 24 24"
+            >
+              <path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="1.5"
+                d="M18 6L6 18m12 0L6 6"
+              />
+            </svg>
+          </span>
+        </app-button>
+      </div>
+    </div>
+    <div class="flex flex-col p-4 gap-2 text-lg font-semibold">
+      <ng-content select="[header]"></ng-content>
+      <ng-content select="[content]"></ng-content>
+      <ng-content select="[footer]"></ng-content>
+    </div>
+  </article>
+</div>
+}

@@ -14,7 +14,7 @@
           />
         </svg>
       </span>
-      <p class="text-lg font-bold">Cart({{cartItems().length}})</p>
+      <p class="text-lg font-bold">Cart({{ cartItems().length }})</p>
     </div>
     <app-button variant="destructive" (clickEmitter)="clearCart()" size="icon">
       <span icon-left>
@@ -48,6 +48,7 @@
       [disabled]="cartItems().length <= 0"
       variant="primary"
       size="md"
+      (clickEmitter)="modalService.openModal('sale-confirmation')"
     >
       <span icon-left>
         <svg

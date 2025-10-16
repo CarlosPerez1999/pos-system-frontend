@@ -1,12 +1,33 @@
 @import url("https://fonts.googleapis.com/css2?family=Jura:wght@300..700&display=swap");
 @import "tailwindcss";
-@import 'tailwind-scrollbar-hide/v4';
+@import "tailwind-scrollbar-hide/v4";
 
 @theme {
   --color-background: #e4e4e7;
   --color-foreground: #38383b;
   --color-surface: #f6f6f9;
   --font-jura: "Jura", sans-serif;
+
+  --animate-toast: toast-slide 4s ease-in-out;
+
+  @keyframes toast-slide {
+    0% {
+      opacity: 0;
+      transform: translateX(200%);
+    }
+    20% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    80% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    100% {
+      opacity: 0;
+      transform: translateX(200%);
+    }
+  }
 }
 
 @layer base {

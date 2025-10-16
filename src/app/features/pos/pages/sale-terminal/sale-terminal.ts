@@ -8,6 +8,7 @@ import { CurrencyPipe } from '@angular/common';
 import { AppButton } from '../../../../shared/components/app-button/app-button';
 import { ModalService } from '../../../../core/services/modal-service';
 import { SalesService } from '../../../sales/services/sales-service';
+import { ToastService } from '../../../../core/services/toast-service';
 
 @Component({
   selector: 'app-sale-terminal',
@@ -25,6 +26,7 @@ export class SaleTerminal {
   cartService = inject(CartService);
   modalService = inject(ModalService);
   salesService = inject(SalesService);
+  toastService = inject(ToastService);
   customerPayment = model<number>(NaN);
 
   calculateChange = computed(() => {
@@ -37,15 +39,23 @@ export class SaleTerminal {
 
   confirmSale() {
     const products = this.cartService.getProducts();
-    const payment = this.customerPayment();
 
     this.salesService.createSale(products()).subscribe({
       next: () => {
         this.customerPayment.set(0);
         this.modalService.closeModal('sale-confirmation');
+        this.toastService.showToast({
+          type: 'success',
+          message: 'Sale completed successfully',
+        });
         this.cartService.clearCart();
       },
       error: (err) => {
+        this.modalService.closeModal('sale-confirmation');
+        this.toastService.showToast({
+          type: 'error',
+          message: `Sale could not be processed: ${err.error.message}`,
+        });
         console.error('Error creating sale:', err);
       },
     });

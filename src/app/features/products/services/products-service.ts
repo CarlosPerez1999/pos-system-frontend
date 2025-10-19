@@ -1,4 +1,10 @@
-import { inject, Injectable, signal } from '@angular/core';
+import {
+  effect,
+  inject,
+  Injectable,
+  linkedSignal,
+  signal,
+} from '@angular/core';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -19,15 +25,29 @@ import { environment } from '../../../../environments/environment.development';
 export class ProductsService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.API_URL}/products`;
+  private products = signal<Product[]>([]);
+  products$ = this.products.asReadonly();
+
   private isLoading = signal<boolean>(false);
   private hasError = signal<string | null>(null);
 
   private limit = signal(10);
   private offset = signal(0);
+  private searchQuery = signal('');
 
-  productsResource = httpResource<ProductsResponse>(
-    () => `${this.apiUrl}?limit=${this.limit()}&offset=${this.offset()}`
-  );
+  productsResource = httpResource<ProductsResponse | undefined>(() => ({
+    url: `${this.apiUrl}`,
+    params: {
+      offset: this.offset(),
+      limit: this.limit(),
+      search: this.searchQuery(),
+    },
+  }));
+
+  productsEffect = effect(() => {
+    if (!this.productsResource.hasValue()) return;
+    this.products.set(this.productsResource.value().items);
+  });
 
   getProductById(id: string) {
     return httpResource<Product>(() => `${this.apiUrl}/${id}`);
@@ -69,5 +89,9 @@ export class ProductsService {
         throw error;
       })
     );
+  }
+
+  setSearchQuery(newQuery: string) {
+    this.searchQuery.set(newQuery);
   }
 }

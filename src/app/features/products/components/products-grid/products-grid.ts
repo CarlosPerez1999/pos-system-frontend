@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ProductsService } from '../../services/products-service';
-import { ProductCard } from "../product-card/product-card";
+import { ProductCard } from '../product-card/product-card';
 
 @Component({
   selector: 'products-grid',
@@ -9,9 +9,4 @@ import { ProductCard } from "../product-card/product-card";
 })
 export class ProductsGrid {
   productsService = inject(ProductsService);
-
-  productsResource = this.productsService.productsResource;
-
-  
-
 }

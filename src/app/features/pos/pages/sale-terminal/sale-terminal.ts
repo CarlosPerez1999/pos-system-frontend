@@ -9,6 +9,8 @@ import { AppButton } from '../../../../shared/components/app-button/app-button';
 import { ModalService } from '../../../../core/services/modal-service';
 import { SalesService } from '../../../sales/services/sales-service';
 import { ToastService } from '../../../../core/services/toast-service';
+import { ProductsService } from '../../../products/services/products-service';
+import { AppSearchBar } from '../../../../shared/components/app-search-bar/app-search-bar';
 
 @Component({
   selector: 'app-sale-terminal',
@@ -19,6 +21,7 @@ import { ToastService } from '../../../../core/services/toast-service';
     FormsModule,
     CurrencyPipe,
     AppButton,
+    AppSearchBar,
   ],
   templateUrl: './sale-terminal.html',
 })
@@ -27,6 +30,7 @@ export class SaleTerminal {
   modalService = inject(ModalService);
   salesService = inject(SalesService);
   toastService = inject(ToastService);
+  productsService = inject(ProductsService);
   customerPayment = model<number>(NaN);
 
   calculateChange = computed(() => {
@@ -71,5 +75,9 @@ export class SaleTerminal {
   cancelSale() {
     this.customerPayment.set(NaN);
     this.modalService.closeModal('sale-confirmation');
+  }
+
+  searchProduct(query: string) {
+    this.productsService.setSearchQuery(query);
   }
 }

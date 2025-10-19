@@ -2,7 +2,13 @@
   <div
     class="flex justify-between gap-8 flex-col lg:flex-row w-full max-w-screen-2xl"
   >
-    <products-grid class="lg:w-8/12"></products-grid>
+    <div class="w-full flex flex-col items-center gap-4">
+      <app-search-bar
+        placeholder="Search for product (name, code or SKU)"
+        (onSearch)="productsService.setSearchQuery($event)"
+      ></app-search-bar>
+      <products-grid class="w-full"></products-grid>
+    </div>
     <sales-shopping-cart class="lg:w-4/12"></sales-shopping-cart>
   </div>
 </section>

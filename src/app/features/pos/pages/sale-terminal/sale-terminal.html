@@ -4,6 +4,7 @@
   >
     <div class="w-full flex flex-col items-center gap-4">
       <app-search-bar
+        class="w-full lg:w-sm"
         placeholder="Search for product (name, code or SKU)"
         (onSearch)="productsService.setSearchQuery($event)"
       ></app-search-bar>

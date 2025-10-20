@@ -1,10 +1,4 @@
-import {
-  effect,
-  inject,
-  Injectable,
-  linkedSignal,
-  signal,
-} from '@angular/core';
+import { effect, inject, Injectable, signal } from '@angular/core';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -28,12 +22,12 @@ export class ProductsService {
   private products = signal<Product[]>([]);
   products$ = this.products.asReadonly();
 
-  private isLoading = signal<boolean>(false);
+  isLoading = signal<boolean>(false);
   private hasError = signal<string | null>(null);
-
   private limit = signal(10);
   private offset = signal(0);
   private searchQuery = signal('');
+  private totalProducts = signal(0);
 
   productsResource = httpResource<ProductsResponse | undefined>(() => ({
     url: `${this.apiUrl}`,
@@ -45,9 +39,18 @@ export class ProductsService {
   }));
 
   productsEffect = effect(() => {
-    if (!this.productsResource.hasValue()) return;
-    this.products.set(this.productsResource.value().items);
+    const res = this.productsResource.value();
+    if (!res) return;
+    this.totalProducts.set(res.total);
+
+    if (this.offset() === 0) {
+      this.products.set(res.items);
+    } else {
+      this.products.update((prev) => [...prev, ...res.items]);
+    }
+    this.isLoading.set(false);
   });
+
 
   getProductById(id: string) {
     return httpResource<Product>(() => `${this.apiUrl}/${id}`);
@@ -78,6 +81,7 @@ export class ProductsService {
       })
     );
   }
+
   deleteProduct(id: string) {
     this.isLoading.set(true);
     this.hasError.set(null);
@@ -91,7 +95,25 @@ export class ProductsService {
     );
   }
 
+  
+  nextPage() {
+    if (this.isLoading() || !this.hasMore()) return;
+
+    this.isLoading.set(true);
+    this.offset.update((off) => off + this.limit());
+  }
+
+  hasMore() {
+    return this.products().length < this.totalProducts();
+  }
+
   setSearchQuery(newQuery: string) {
+    this.products.set([]);
+    this.totalProducts.set(0);
+    this.hasError.set(null);
+    this.isLoading.set(true);
+
     this.searchQuery.set(newQuery);
+    this.offset.set(0);
   }
 }

@@ -1,24 +1,12 @@
 <div
   (click)="addProductToCart()"
-  class="flex flex-col h-full p-4 bg-surface items-center rounded-md shadow-md cursor-pointer transition-all duration-400 select-none hover:ring-2 hover:ring-blue-500"
+  class="flex flex-col h-full p-4 bg-surface items-center rounded-md shadow-md cursor-pointer transition-all duration-400 select-none hover:ring-2 hover:ring-blue-500 active:ring-4 active:ring-blue-500"
 >
   <div class="size-30">
     @if(product().imageUrl){
     <img class="w-full h-full object-cover" [src]="product().imageUrl" alt="" />
     }@else {
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="100%"
-      height="100%"
-      fill="currentColor"
-      viewBox="0 0 24 24"
-      class="text-zinc-400"
-    >
-      <path
-        fill="currentColor"
-        d="M11 21.725v-9.15L3 7.95v8.025q0 .55.263 1T4 17.7zm2 0l7-4.025q.475-.275.738-.725t.262-1V7.95l-8 4.625zm3.975-13.75l2.95-1.725L13 2.275Q12.525 2 12 2t-1 .275L9.025 3.4zM12 10.85l2.975-1.7l-7.925-4.6l-3 1.725z"
-      />
-    </svg>
+    <app-icon icon="lucide:package" width="100%" height="100%"></app-icon>
     }
   </div>
   <div class="flex flex-col">

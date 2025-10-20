@@ -1,10 +1,11 @@
 import { Component, input, model, ModelSignal, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { debounceTime } from 'rxjs';
+import { AppIcon } from "../app-icon/app-icon";
 
 @Component({
   selector: 'app-search-bar',
-  imports: [FormsModule],
+  imports: [FormsModule, AppIcon],
   templateUrl: './app-search-bar.html',
 })
 export class AppSearchBar {

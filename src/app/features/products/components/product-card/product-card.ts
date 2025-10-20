@@ -2,10 +2,11 @@ import { Component, inject, input } from '@angular/core';
 import { Product } from '../../../../core/models/product.model';
 import { CurrencyPipe } from '@angular/common';
 import { CartService } from '../../../sales/services/cart-service';
+import { AppIcon } from "../../../../shared/components/app-icon/app-icon";
 
 @Component({
   selector: 'product-card',
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe, AppIcon],
   templateUrl: './product-card.html',
 })
 export class ProductCard {

@@ -22,7 +22,7 @@ export class AppButton {
   variants: Record<ButtonVariant, string> = {
     primary: 'bg-blue-500 text-white shadow-md hover:bg-blue-600 ',
     secondary: 'ring-2 ring-zinc-300  hover:ring-blue-600 hover:bg-zinc-100',
-    ghost: 'hover:text-foreground hover:bg-surface',
+    ghost: 'hover:text-foreground hover:bg-background',
     destructive: 'bg-red-500 text-white shadow-md hover:bg-red-600',
     success: 'bg-green-500 text-white shadow-md hover:bg-green-600',
     danger: 'bg-amber-500 text-white shadow-md hover:bg-amber-600',

@@ -2,11 +2,15 @@
   class="py-8 px-1 scrollbar-hide overflow-x-auto overflow-y-auto sm:overflow-x-hidden sm:overflow-y-auto max-h-[calc(2*15rem+2rem)]"
 >
   <div
-     class="grid grid-flow-row grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
+    class="grid grid-flow-row grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
   >
     @for (product of productsService.products$(); track product.id) {
     <product-card [product]="product"></product-card>
     }
   </div>
-  <div #sentinel class=" h-1"></div>
+  <div
+    appInfiniteScroll
+    [loadMore]="productsService.nextPage.bind(productsService)"
+    class="h-2"
+  ></div>
 </article>

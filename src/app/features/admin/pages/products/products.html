@@ -1,0 +1,79 @@
+<section class="w-full px-5 pb-5 flex flex-col gap-4 items-center">
+  <div class="w-full flex justify-between items-center">
+    <h2 class="text-lg sm:text-2xl font-bold">Product Management</h2>
+    <app-button
+      size="auto"
+      variant="primary"
+      (clickEmitter)="onCreateProduct()"
+    >
+      <app-icon icon-left icon="mdi:add" />
+      <span class="hidden sm:block" label>Add product</span>
+    </app-button>
+  </div>
+  <app-search-bar
+    class="w-full lg:w-sm"
+    placeholder="Search for product (name, code or SKU)"
+    (onSearch)="productsService.setSearchQuery($event)"
+  ></app-search-bar>
+  <div class="max-h-[10dvh]">
+    <app-grid [loadMore]="loadMoreProducts">
+      @for (product of products(); track product.id) {
+      <article class="h-full flex flex-col gap-2 bg-surface p-4 rounded-lg">
+        <div class="flex h-full justify-between gap-4 items-start">
+          <p class="text-base sm:text-xl font-bold line-clamp-2">
+            {{ product.name }}
+          </p>
+          <span
+            class="hidden sm:flex justify-center items-center size-5 px-5 font-bold text-sm sm:text-lg bg-green-500 text-white rounded-full"
+            >{{ product.stock }}</span
+          >
+        </div>
+        <p class="sm:text-lg">{{ product.sku }}</p>
+        <div class="flex items-center gap-4">
+          <app-button
+            (clickEmitter)="onEditProduct(product)"
+            class="w-full"
+            variant="secondary"
+          >
+            <app-icon icon-left icon="mdi:edit"></app-icon>
+            <span class="hidden sm:flex" label>Edit</span>
+          </app-button>
+          <app-button
+            variant="destructive"
+            (clickEmitter)="onDeleteProduct(product)"
+            size="icon"
+          >
+            <app-icon icon-left icon="mdi:delete" />
+          </app-button>
+        </div>
+      </article>
+      }
+    </app-grid>
+  </div>
+</section>
+
+<app-modal modalId="create-product" title="Add New Product" type="info">
+  <product-form [product]="selectedProduct()" content></product-form>
+</app-modal>
+
+<app-modal modalId="delete-product" title="Delete Product" type="info">
+  <p content class="text-lg sm:text-2xl">
+    Are you sure you want to delete this product?
+  </p>
+  <div footer class="w-full flex gap-4">
+    <app-button
+      (clickEmitter)="modalService.closeModal('delete-product')"
+      class="w-full"
+      variant="secondary"
+    >
+      <span label>Cancel</span>
+    </app-button>
+    <app-button
+      (clickEmitter)="confirmDelete()"
+      class="w-full"
+      variant="destructive"
+    >
+      <span label>Yes</span>
+    </app-button>
+  </div>
+</app-modal>

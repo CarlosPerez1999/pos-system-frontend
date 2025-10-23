@@ -51,7 +51,6 @@ export class ProductsService {
     this.isLoading.set(false);
   });
 
-
   getProductById(id: string) {
     return httpResource<Product>(() => `${this.apiUrl}/${id}`);
   }
@@ -61,6 +60,7 @@ export class ProductsService {
     this.hasError.set(null);
     return this.http.post<Product>(`${this.apiUrl}`, data).pipe(
       tap(() => this.isLoading.set(false)),
+      tap(() => this.productsResource.reload()),
       catchError((error: HttpErrorResponse) => {
         this.hasError.set(error.error.message || 'Error creating product');
         this.isLoading.set(false);
@@ -74,6 +74,7 @@ export class ProductsService {
     this.hasError.set(null);
     return this.http.patch<Product>(`${this.apiUrl}/${id}`, data).pipe(
       tap(() => this.isLoading.set(false)),
+      tap(() => this.productsResource.reload()),
       catchError((error: HttpErrorResponse) => {
         this.hasError.set(error.error.message || 'Error updating product');
         this.isLoading.set(false);
@@ -87,6 +88,7 @@ export class ProductsService {
     this.hasError.set(null);
     return this.http.delete(`${this.apiUrl}/${id}`).pipe(
       tap(() => this.isLoading.set(false)),
+      tap(() => this.productsResource.reload()),
       catchError((error: HttpErrorResponse) => {
         this.hasError.set(error.error.message || 'Error deleting product');
         this.isLoading.set(false);
@@ -95,7 +97,6 @@ export class ProductsService {
     );
   }
 
-  
   nextPage() {
     if (this.isLoading() || !this.hasMore()) return;
 

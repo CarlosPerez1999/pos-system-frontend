@@ -47,7 +47,6 @@
     <app-button
       [disabled]="cartItems().length <= 0"
       variant="primary"
-      size="md"
       (clickEmitter)="modalService.openModal('sale-confirmation')"
     >
       <span icon-left>

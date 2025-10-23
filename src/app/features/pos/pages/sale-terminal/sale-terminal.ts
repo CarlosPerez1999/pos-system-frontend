@@ -1,6 +1,6 @@
 import { Component, computed, inject, model } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ProductsGrid } from '../../../products/components/products-grid/products-grid';
+import { ProductsGrid } from '../../../../shared/components/app-grid/app-grid';
 import { ShoppingCart } from '../../../sales/components/shopping-cart/shopping-cart';
 import { AppModal } from '../../../../shared/components/app-modal/app-modal';
 import { CartService } from '../../../sales/services/cart-service';
@@ -11,6 +11,7 @@ import { SalesService } from '../../../sales/services/sales-service';
 import { ToastService } from '../../../../core/services/toast-service';
 import { ProductsService } from '../../../products/services/products-service';
 import { AppSearchBar } from '../../../../shared/components/app-search-bar/app-search-bar';
+import { ProductCard } from '../../../products/components/product-card/product-card';
 
 @Component({
   selector: 'app-sale-terminal',
@@ -22,6 +23,7 @@ import { AppSearchBar } from '../../../../shared/components/app-search-bar/app-s
     CurrencyPipe,
     AppButton,
     AppSearchBar,
+    ProductCard,
   ],
   templateUrl: './sale-terminal.html',
 })
@@ -80,4 +82,8 @@ export class SaleTerminal {
   searchProduct(query: string) {
     this.productsService.setSearchQuery(query);
   }
+
+  onLoadMore = () => {
+    this.productsService.nextPage();
+  };
 }

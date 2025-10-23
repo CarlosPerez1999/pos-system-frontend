@@ -8,7 +8,11 @@
         placeholder="Search for product (name, code or SKU)"
         (onSearch)="productsService.setSearchQuery($event)"
       ></app-search-bar>
-      <products-grid class="w-full"></products-grid>
+      <app-grid [loadMore]="onLoadMore" class="w-full">
+        @for (product of productsService.products$(); track product.id) {
+        <product-card [product]="product"></product-card>
+        }
+      </app-grid>
     </div>
     <sales-shopping-cart class="lg:w-4/12"></sales-shopping-cart>
   </div>
@@ -46,7 +50,6 @@
   <span footer class="w-full flex justify-center gap-4 mt-2">
     <app-button
       class="w-full"
-      size="md"
       variant="destructive"
       (clickEmitter)="cancelSale()"
     >
@@ -55,7 +58,6 @@
     <app-button
       (clickEmitter)="confirmSale()"
       [disabled]="!canConfirmSale()"
-      size="md"
       class="w-full"
       variant="primary"
     >

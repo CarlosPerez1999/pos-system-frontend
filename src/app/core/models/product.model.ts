@@ -4,7 +4,7 @@ export interface Product {
   description?: string;
   price: number;
   stock: number;
-  imageUrl?: string;
+  imageUrl?: string | null;
   sku: string;
   barcode?: string;
   isActive?: boolean;

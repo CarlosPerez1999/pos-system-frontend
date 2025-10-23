@@ -20,7 +20,7 @@ const meta: Meta<AppButton> = {
     },
     size: {
       control: { type: 'radio' },
-      options: ['sm', 'md', 'lg', 'icon'],
+      options: ['auto','icon'],
     },
     disabled: {
       control: { type: 'boolean' },
@@ -35,7 +35,7 @@ type Story = StoryObj<AppButton>;
 export const Default: Story = {
   args: {
     variant: 'primary',
-    size: 'md',
+    size: 'auto',
   },
   render: (args) => ({
     props: args,
@@ -46,7 +46,7 @@ export const Default: Story = {
 export const Primary: Story = {
   args: {
     variant: 'primary',
-    size: 'md',
+    size: 'auto',
   },
   render: (args) => ({
     props: args,
@@ -57,7 +57,7 @@ export const Primary: Story = {
 export const Secondary: Story = {
   args: {
     variant: 'secondary',
-    size: 'md',
+    size: 'auto',
   },
   render: (args) => ({
     props: args,
@@ -68,7 +68,7 @@ export const Secondary: Story = {
 export const Ghost: Story = {
   args: {
     variant: 'ghost',
-    size: 'md',
+    size: 'auto',
   },
   render: (args) => ({
     props: args,
@@ -79,7 +79,7 @@ export const Ghost: Story = {
 export const Success: Story = {
   args: {
     variant: 'success',
-    size: 'md',
+    size: 'auto',
   },
   render: (args) => ({
     props: args,
@@ -90,7 +90,7 @@ export const Success: Story = {
 export const Destructive: Story = {
   args: {
     variant: 'destructive',
-    size: 'md',
+    size: 'auto',
   },
   render: (args) => ({
     props: args,
@@ -101,7 +101,7 @@ export const Destructive: Story = {
 export const Danger: Story = {
   args: {
     variant: 'danger',
-    size: 'md',
+    size: 'auto',
   },
   render: (args) => ({
     props: args,
@@ -112,7 +112,7 @@ export const Danger: Story = {
 export const Info: Story = {
   args: {
     variant: 'info',
-    size: 'md',
+    size: 'auto',
   },
   render: (args) => ({
     props: args,
@@ -140,7 +140,7 @@ export const Icon: Story = {
 export const WithIconLeft: Story = {
   args: {
     variant: 'success',
-    size: 'md',
+    size: 'auto',
   },
   render: (args) => ({
     props: args,
@@ -159,7 +159,7 @@ export const WithIconLeft: Story = {
 export const WithIconRight: Story = {
   args: {
     variant: 'success',
-    size: 'md',
+    size: 'auto',
   },
   render: (args) => ({
     props: args,

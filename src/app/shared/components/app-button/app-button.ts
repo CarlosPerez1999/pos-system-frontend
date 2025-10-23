@@ -7,8 +7,8 @@ import { ButtonSize, ButtonVariant } from './app-button-types';
   templateUrl: './app-button.html',
 })
 export class AppButton {
-  variant = input<ButtonVariant>('success');
-  size = input<ButtonSize>('sm');
+  variant = input<ButtonVariant>('primary');
+  size = input<ButtonSize>('auto');
   disabled = input<boolean>(false);
 
   clickEmitter = output();
@@ -21,7 +21,7 @@ export class AppButton {
 
   variants: Record<ButtonVariant, string> = {
     primary: 'bg-blue-500 text-white shadow-md hover:bg-blue-600 ',
-    secondary: 'ring-2 ring-zinc-300  hover:ring-blue-600 hover:bg-zinc-100',
+    secondary: 'ring-2 ring-zinc-300  hover:ring-blue-600 hover:bg-background',
     ghost: 'hover:text-foreground hover:bg-background',
     destructive: 'bg-red-500 text-white shadow-md hover:bg-red-600',
     success: 'bg-green-500 text-white shadow-md hover:bg-green-600',
@@ -30,10 +30,8 @@ export class AppButton {
   };
 
   sizes: Record<ButtonSize, string> = {
-    icon: 'p-2.5 size-8 aspect-square',
-    sm: 'py-1.5 px-3 text-sm',
-    md: 'py-2 px-4 text-base',
-    lg: 'py-3 px-6 text-lg',
+    icon: 'p-2.5 size-10 aspect-square',
+    auto: 'py-1.5 px-3 text-sm sm:px-4 sm:text-base md:px-5 md:text-lg'
   };
 
   get styles(): string {

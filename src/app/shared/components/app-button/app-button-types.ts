@@ -6,4 +6,4 @@ export type ButtonVariant =
   | 'success'
   | 'danger'
   | 'info';
-export type ButtonSize = 'sm' | 'md' | 'lg' | 'icon';
+export type ButtonSize = 'auto' |'icon';

@@ -1,0 +1,5 @@
+<nav class="flex gap-2 p-1.5 mx-5 sm:max-w-fit rounded-full scrollbar-hide overflow-x-auto whitespace-nowrap px-2 bg-surface">
+  @for (item of menuItems(); track item.href) {
+    <a class="flex w-full items-center gap-2 p-2 rounded-full hover:bg-background transition-all duration-300" routerLinkActive="bg-background font-bold text-blue-400" [routerLink]="[item.href]"> <app-icon [icon]="item.iconName" /> {{item.label}}</a>
+  }
+</nav>

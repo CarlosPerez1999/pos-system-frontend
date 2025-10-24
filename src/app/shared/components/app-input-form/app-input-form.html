@@ -2,7 +2,19 @@
   <label [for]="inputName()">
     {{ label() }}
   </label>
-  @if(type() === 'checkbox'){
+  @if (type() === 'select') {
+    <select
+      class="bg-surface p-1 rounded-md outline-0 focus:ring-2 focus:ring-blue-500"
+      [name]="inputName()"
+      [formControl]="control()"
+      (change)="onNumberChange($event, control())"
+    >
+      @for (option of selectOptions(); track option) {
+        <option [value]="option" >{{option | titlecase}}</option>
+      }
+    </select>
+  }
+  @else if (type() === 'checkbox'){
   <input
     class="size-8 accent-blue-500 cursor-pointer"
     type="checkbox"

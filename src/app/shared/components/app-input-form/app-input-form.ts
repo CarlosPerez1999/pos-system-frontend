@@ -1,3 +1,4 @@
+import { TitleCasePipe } from '@angular/common';
 import { Component, input, signal } from '@angular/core';
 import {
   AbstractControl,
@@ -8,13 +9,20 @@ import {
 
 @Component({
   selector: 'app-input-form',
-  imports: [FormsModule, ReactiveFormsModule],
+  imports: [FormsModule, ReactiveFormsModule, TitleCasePipe],
   templateUrl: './app-input-form.html',
 })
 export class AppInputForm {
   type = input<
-    'text' | 'textarea' | 'number' | 'password' | 'email' | 'checkbox'
+    | 'text'
+    | 'textarea'
+    | 'number'
+    | 'password'
+    | 'email'
+    | 'checkbox'
+    | 'select'
   >('text');
+  selectOptions = input<string[]>([]);
   label = input.required<string>();
   control = input.required<FormControl>();
   inputName = input.required<string>();

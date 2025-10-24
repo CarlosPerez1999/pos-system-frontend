@@ -23,7 +23,7 @@ export class AdminLayout {
     },
     {
       label: 'Inventory',
-      href: '/admin/analytics',
+      href: '/admin/inventory',
       iconName: 'material-symbols:inventory'
     },
     {

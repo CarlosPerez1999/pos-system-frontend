@@ -8,8 +8,12 @@
   </tr>
   @for (item of visibleItems(); track item.id) {
   <tr
-    (click)="selectedItem.set(item.id)"
-    class="w-full p-2 flex justify-between items-center gap-1 odd:bg-surface"
+    [ngClass]="{
+      'w-full p-2 flex justify-between items-center gap-1 cursor-pointer': true,
+      'odd:bg-surface': true,
+      '!bg-blue-500 font-bold text-white': selectedItem() === item.id
+    }"
+    (click)="getSelectedItem(item.id)"
   >
     @for (col of columns(); track col) {
     <td class="w-full text-center">

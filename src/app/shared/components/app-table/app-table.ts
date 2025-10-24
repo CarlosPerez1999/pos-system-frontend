@@ -1,7 +1,8 @@
-import { Component, computed, inject, input, signal } from '@angular/core';
+import { Component, computed, inject, input, output, signal } from '@angular/core';
 import { ProductsService } from '../../../features/products/services/products-service';
 import { AppIcon } from '../app-icon/app-icon';
 import { AppButton } from '../app-button/app-button';
+import { NgClass } from '@angular/common';
 
 export interface TableColumn<T> {
   key: keyof T;
@@ -12,7 +13,7 @@ export interface TableColumn<T> {
 
 @Component({
   selector: 'app-table',
-  imports: [AppIcon, AppButton],
+  imports: [AppIcon, AppButton, NgClass],
   templateUrl: './app-table.html',
 })
 export class AppTable<T> {
@@ -25,6 +26,7 @@ export class AppTable<T> {
   nextPageFn = input.required<() => void>();
   hasMore = input.required<boolean>();
   selectedItem = signal<string | null>(null)
+  getSelectedItemEmit  = output<string | null>()
 
   protected maxPage = computed(() => {
     return Math.ceil(this.totalItems() / this.pageSize());
@@ -51,4 +53,10 @@ export class AppTable<T> {
       this.currentPage.update((p) => p - 1);
     }
   }
+
+  getSelectedItem(itemId:string){
+    this.selectedItem.set(itemId)
+    this.getSelectedItemEmit.emit(this.selectedItem())
+  }
+
 }

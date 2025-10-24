@@ -1,0 +1,30 @@
+<section class="w-full px-5 pb-5 flex flex-col gap-4 items-center">
+  <app-search-bar
+    class="w-full lg:w-sm"
+    placeholder="Search for product (name, code or SKU)"
+    (onSearch)="productsService.setSearchQuery($event)"
+  ></app-search-bar>
+  <app-table
+    class="w-full"
+    [columns]="productCols"
+    [items]="productsService.products$()"
+    [totalItems]="productsService.totalProducts()"
+    [nextPageFn]="productsService.nextPage.bind(productsService)"
+    [hasMore]="productsService.hasMore()"
+    (getSelectedItemEmit)="selectedProduct.set($event)"
+  >
+    <app-button
+      (clickEmitter)="openAdjustmentForm()"
+      ><app-icon icon-left icon="heroicons-solid:adjustments"></app-icon>
+      <span label class="line-clamp-1">Adjust stock</span>
+    </app-button>
+    <app-button variant="secondary"
+      ><app-icon icon-left icon="solar:document-add-bold"></app-icon>
+      <span label class="line-clamp-1">See movements</span>
+    </app-button>
+  </app-table>
+</section>
+
+<app-modal title="Adjust Stock" modalId="adjust-stock" type="info" >
+  <inventory-movement-form  [productId]="selectedProduct()" content ></inventory-movement-form>
+</app-modal>

@@ -27,7 +27,7 @@ export class ProductsService {
   private limit = signal(10);
   private offset = signal(0);
   private searchQuery = signal('');
-  private totalProducts = signal(0);
+  totalProducts = signal(0);
 
   productsResource = httpResource<ProductsResponse | undefined>(() => ({
     url: `${this.apiUrl}`,
@@ -116,5 +116,6 @@ export class ProductsService {
 
     this.searchQuery.set(newQuery);
     this.offset.set(0);
+    this.productsResource.reload();
   }
 }

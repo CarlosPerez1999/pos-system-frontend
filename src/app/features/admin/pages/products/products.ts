@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, OnDestroy, signal } from '@angular/core';
 import { AppButton } from '../../../../shared/components/app-button/app-button';
 import { AppIcon } from '../../../../shared/components/app-icon/app-icon';
 import { ProductsService } from '../../../products/services/products-service';
@@ -22,7 +22,7 @@ import { ToastService } from '../../../../core/services/toast-service';
   ],
   templateUrl: './products.html',
 })
-export class ProductsPage {
+export class ProductsPage implements OnDestroy{
   productsService = inject(ProductsService);
   modalService = inject(ModalService);
   toastService = inject(ToastService);
@@ -73,5 +73,8 @@ export class ProductsPage {
         this.modalService.closeModal('delete-product');
       },
     });
+  }
+  ngOnDestroy(): void {
+    this.productsService.setSearchQuery('');
   }
 }

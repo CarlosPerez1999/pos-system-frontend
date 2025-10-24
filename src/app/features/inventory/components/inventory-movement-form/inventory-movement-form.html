@@ -1,0 +1,12 @@
+<form [formGroup]="inventoryMovementForm" class="flex flex-col gap-4 ">
+  <div class="grid grid-cols-2  gap-4">
+    <app-input-form class=" col-span-2"  [control]="inventoryMovementForm.controls.quantity" inputName="quantity" label="Quantity" type="number"></app-input-form>
+    <app-input-form class=" col-span-2"  [control]="inventoryMovementForm.controls.movementType" inputName="movementType" label="Movement Type" type="select" [selectOptions]="['IN', 'OUT']"></app-input-form>
+    <app-input-form class=" col-span-2"  [control]="inventoryMovementForm.controls.description" inputName="description" label="Description" type="textarea"></app-input-form>
+   
+  </div>
+
+  <app-button [disabled]="inventoryMovementForm.invalid" (clickEmitter)="onSubmit()" variant="primary">
+    <span label>{{'Save'}}</span>
+  </app-button>
+</form>

@@ -21,8 +21,14 @@ export class InventoryMovementForm {
   productId = input.required<string | null>();
   fb = inject(FormBuilder);
 
+  selectedProductEffect = effect(() => {
+    const productId = this.productId();
+    if (!productId) return;
+    this.productsService.setSelectedProductId(productId);
+  });
+
   inventoryMovementForm = this.fb.group({
-    quantity: this.fb.control<number>(NaN, {
+    quantity: this.fb.control<number>(0, {
       validators: [Validators.required, Validators.min(1)],
       nonNullable: true,
     }),
@@ -45,12 +51,12 @@ export class InventoryMovementForm {
   onSubmit() {
     if (this.inventoryMovementForm.valid) {
       const productId = this.productId();
-      if (!productId) return
+      if (!productId) return;
       const newMovement: InventoryMovementCreate = {
         ...this.inventoryMovementForm.getRawValue(),
         productId,
       };
-      this.inventoryService.createInventoryMovement(newMovement).subscribe({
+      this.inventoryService.createMovement(newMovement).subscribe({
         next: () => {
           this.modalService.closeModal('adjust-stock');
           this.toastService.showToast({
@@ -58,7 +64,7 @@ export class InventoryMovementForm {
             message: 'Adjustment made successfully',
           });
           this.inventoryMovementForm.reset();
-          this.productsService.productsResource.reload()
+          this.productsService.productsResource.reload();
         },
         error: (err) => {
           this.toastService.showToast({

@@ -11,18 +11,33 @@ import { Product } from '../../../../core/models/product.model';
 import { AppModal } from '../../../../shared/components/app-modal/app-modal';
 import { ModalService } from '../../../../core/services/modal-service';
 import { ToastService } from '../../../../core/services/toast-service';
-import { InventoryMovementForm } from "../../../inventory/components/inventory-movement-form/inventory-movement-form";
+import { InventoryMovementForm } from '../../../inventory/components/inventory-movement-form/inventory-movement-form';
+import { InventoryService } from '../../../inventory/services/inventory-service';
+import {
+  InventoryMovement,
+  InventoryMovementResponse,
+} from '../../../../core/models/inventory.model';
 
 @Component({
   selector: 'app-inventory',
-  imports: [AppTable, AppButton, AppIcon, AppSearchBar, AppModal, InventoryMovementForm],
+  imports: [
+    AppTable,
+    AppButton,
+    AppIcon,
+    AppSearchBar,
+    AppModal,
+    InventoryMovementForm,
+  ],
   templateUrl: './inventory.html',
 })
 export class InventoryPage implements OnDestroy {
   productsService = inject(ProductsService);
+  inventoryService = inject(InventoryService);
   modalService = inject(ModalService);
   toastService = inject(ToastService);
   selectedProduct = signal<string | null>(null);
+  productAdjustments = signal<InventoryMovementResponse | null>(null);
+
   productCols: TableColumn<Product>[] = [
     {
       key: 'sku',
@@ -43,17 +58,72 @@ export class InventoryPage implements OnDestroy {
     },
   ];
 
+  adjustmentsCols: TableColumn<InventoryMovement>[] = [
+    {
+      key: 'createdAt',
+      label: 'Date',
+      format: (val) => {
+        const date = typeof val === 'string' ? new Date(val) : val;
+        return date ? date.toLocaleString('es-MX') : '';
+      },
+    },
+    {
+      key: 'quantity',
+      label: 'Quantity',
+    },
+    {
+      key: 'movementType',
+      label: 'Movement Type',
+    },
+    {
+      key: 'description',
+      label: 'Description',
+    },
+  ];
+
+  lowStockCols: TableColumn<Product>[] = [
+    {
+      key: 'sku',
+      label: 'SKU',
+    },
+    {
+      key: 'name',
+      label: 'Product',
+    },
+    {
+      key: 'description',
+      label: 'Description',
+    },
+    {
+      key: 'stock',
+      label: 'Stock',
+    },
+  ];
+
   openAdjustmentForm() {
-    const selectedProduct = this.selectedProduct()
+    const selectedProduct = this.selectedProduct();
     if (!selectedProduct) {
       this.toastService.showToast({
         type: 'info',
         message: 'Please select a product to make an adjustment',
       });
-      return
+      return;
     }
 
     this.modalService.openModal('adjust-stock');
+  }
+
+  openAdjustmentsModal() {
+    const selectedProduct = this.selectedProduct();
+    if (!selectedProduct) {
+      this.toastService.showToast({
+        type: 'info',
+        message: 'Please select a product to see stock adjustments',
+      });
+      return;
+    }
+    this.inventoryService.setProductId(selectedProduct);
+    this.modalService.openModal('product-adjustments');
   }
 
   ngOnDestroy(): void {

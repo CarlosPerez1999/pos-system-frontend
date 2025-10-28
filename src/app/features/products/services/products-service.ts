@@ -21,6 +21,7 @@ export class ProductsService {
   private readonly apiUrl = `${environment.API_URL}/products`;
   private products = signal<Product[]>([]);
   products$ = this.products.asReadonly();
+  private selectedProductId = signal<string | null>(null);
 
   isLoading = signal<boolean>(false);
   private hasError = signal<string | null>(null);
@@ -51,8 +52,13 @@ export class ProductsService {
     this.isLoading.set(false);
   });
 
-  getProductById(id: string) {
-    return httpResource<Product>(() => `${this.apiUrl}/${id}`);
+  productResource = httpResource<Product | undefined>(() => {
+    const id = this.selectedProductId();
+    return id ? `${this.apiUrl}/${id}` : undefined;
+  });
+
+  setSelectedProductId(id: string) {
+    this.selectedProductId.set(id);
   }
 
   createProduct(data: ProductCreate) {

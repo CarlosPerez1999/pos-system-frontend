@@ -1,3 +1,4 @@
+@if (visibleItems().length > 0) {
 <table
   class="w-full flex flex-col border-2 border-surface rounded-md shadow-lg"
 >
@@ -11,9 +12,10 @@
     [ngClass]="{
       'w-full p-2 flex justify-between items-center gap-1 cursor-pointer': true,
       'odd:bg-surface': true,
-      '!bg-blue-500 font-bold text-white': selectedItem() === item.id
+      '!bg-blue-500 font-bold text-white':
+        selectedItem() === item.id && isSelectable() && selectedItem()
     }"
-    (click)="getSelectedItem(item.id)"
+    (click)="isSelectable() ? getSelectedItem(item.id) : null"
   >
     @for (col of columns(); track col) {
     <td class="w-full text-center">
@@ -27,11 +29,13 @@
     <div
       class="w-full flex items-center justify-between flex-wrap sm:flex-nowrap"
     >
+      @if (maxPage() > 0) {
       <div class="flex gap-4">
         <ng-content></ng-content>
       </div>
       <div class="flex items-center gap-4">
         <app-button
+          [disabled]="currentPage() === 1"
           (clickEmitter)="goToPreviousLocalPage()"
           variant="ghost"
           size="icon"
@@ -40,6 +44,7 @@
         </app-button>
         <p class="font-bold">{{ currentPage() }} of {{ maxPage() }}</p>
         <app-button
+          [disabled]="currentPage() === maxPage()"
           (clickEmitter)="goToNextLocalPage()"
           variant="ghost"
           size="icon"
@@ -47,6 +52,10 @@
           <app-icon icon="solar:map-arrow-right-bold" label></app-icon>
         </app-button>
       </div>
+      }
     </div>
   </div>
 </table>
+}@else{
+<p class="text-lg">There is nothing to show</p>
+}

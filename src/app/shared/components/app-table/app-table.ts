@@ -19,7 +19,8 @@ export interface TableColumn<T> {
 export class AppTable<T> {
   protected productsService = inject(ProductsService);
   protected readonly currentPage = signal(1);
-  protected pageSize = input(5);
+  isSelectable = input<boolean>(true)
+  pageSize = input(5);
   columns = input.required<TableColumn<T>[]>()
   items = input.required<any[]>();
   totalItems = input.required<number>();
@@ -58,5 +59,4 @@ export class AppTable<T> {
     this.selectedItem.set(itemId)
     this.getSelectedItemEmit.emit(this.selectedItem())
   }
-
 }

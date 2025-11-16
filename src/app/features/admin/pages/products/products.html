@@ -1,20 +1,24 @@
 <section class="w-full px-5 pb-5 flex flex-col gap-4 items-center">
-  <div class="w-full flex justify-between items-center">
+  <div class="w-full  flex flex-col sm:flex-row gap-2  justify-between items-center">
     <h2 class="text-lg sm:text-2xl font-bold">Product Management</h2>
-    <app-button
-      size="auto"
-      variant="primary"
-      (clickEmitter)="onCreateProduct()"
-    >
-      <app-icon icon-left icon="mdi:add" />
-      <span class="hidden sm:block" label>Add product</span>
-    </app-button>
+    <div class="flex gap-2 w-fullh
+    ">
+      <app-search-bar
+      class="w-full"
+      placeholder="Search for product (name, code or SKU)"
+      (onSearch)="productsService.setSearchQuery($event)"
+    ></app-search-bar>
+      <app-button
+        size="auto"
+        variant="primary"
+        (clickEmitter)="onCreateProduct()"
+      >
+        <app-icon icon-left icon="mdi:add" />
+        <span class="hidden sm:block" label>Add product</span>
+      </app-button>
+    </div>
   </div>
-  <app-search-bar
-    class="w-full lg:w-sm"
-    placeholder="Search for product (name, code or SKU)"
-    (onSearch)="productsService.setSearchQuery($event)"
-  ></app-search-bar>
+  
   <div class="max-h-[10dvh]">
     <app-grid [loadMore]="loadMoreProducts">
       @for (product of products(); track product.id) {

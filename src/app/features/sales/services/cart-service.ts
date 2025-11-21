@@ -7,12 +7,18 @@ import { Product } from '../../../core/models/product.model';
 })
 export class CartService {
   private items = signal<CartItem[]>([]);
+  productsInCart = computed(() =>
+  this.items().reduce((acc, item) => acc + item.quantity, 0)
+);
+
+ 
   total = computed(() =>
     this.items().reduce(
       (acc, item) => acc + +item.product.price * +item.quantity,
       0
     )
   );
+  
 
   getProducts() {
     return this.items.asReadonly();

@@ -1,4 +1,4 @@
-import { Component, computed, inject, model } from '@angular/core';
+import { Component, computed, inject, model, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ProductsGrid } from '../../../../shared/components/app-grid/app-grid';
 import { ShoppingCart } from '../../../sales/components/shopping-cart/shopping-cart';
@@ -25,6 +25,9 @@ import { ProductCard } from '../../../products/components/product-card/product-c
     AppSearchBar,
     ProductCard,
   ],
+  host: {
+    class: 'h-full',
+  },
   templateUrl: './sale-terminal.html',
 })
 export class SaleTerminal {
@@ -34,6 +37,7 @@ export class SaleTerminal {
   toastService = inject(ToastService);
   productsService = inject(ProductsService);
   customerPayment = model<number>(NaN);
+  cartItemsCount = computed(() => this.cartService.getProducts()().length);
 
   calculateChange = computed(() => {
     const payment = this.customerPayment();
@@ -42,6 +46,14 @@ export class SaleTerminal {
     if (isNaN(payment) || payment <= total) return 0;
     return payment - total;
   });
+
+  openCartModal() {
+    this.modalService.openModal('mobile-cart');
+  }
+
+  closeCartModal() {
+    this.modalService.closeModal('mobile-cart');
+  }
 
   confirmSale() {
     const products = this.cartService.getProducts();

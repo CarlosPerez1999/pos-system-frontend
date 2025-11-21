@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
-import { DashboardPage } from './pages/dashboard/dashboard';
 import { AdminLayout } from './layouts/layout';
 import { ProductsPage } from './pages/products/products';
+import { InventoryPage } from './pages/inventory/inventory';
 
 export const ADMIN_ROUTES: Routes = [
   {
@@ -9,12 +9,12 @@ export const ADMIN_ROUTES: Routes = [
     component: AdminLayout,
     children: [
       {
-        path: 'dashboard',
-        component: DashboardPage,
-      },
-      {
         path: 'products',
         component: ProductsPage,
+      },
+      {
+        path: 'inventory',
+        component: InventoryPage,
       },
       {
         path: '**',

@@ -40,5 +40,8 @@
 
 html,
 body {
-  @apply bg-background text-foreground font-jura transition-all transition-discrete;
+  @apply h-full w-full bg-background text-foreground font-jura transition-all transition-discrete;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
 }

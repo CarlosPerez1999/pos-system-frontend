@@ -21,6 +21,9 @@ import { ToastService } from '../../../../core/services/toast-service';
     ProductForm,
   ],
   templateUrl: './products.html',
+   host: {
+    class: 'h-full flex flex-col'
+  }
 })
 export class ProductsPage implements OnDestroy{
   productsService = inject(ProductsService);

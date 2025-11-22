@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, signal, computed } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
@@ -6,6 +6,7 @@ import { Injectable, signal } from '@angular/core';
 export class ThemeService {
   private storageThemeKey = 'theme';
   isDarkMode = signal<boolean>(this.getInitialTheme());
+  theme = computed(() => this.isDarkMode() ? 'dark' : 'light');
 
   constructor() {
     this.applyTheme(this.isDarkMode());

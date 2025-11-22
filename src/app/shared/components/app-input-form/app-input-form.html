@@ -3,64 +3,47 @@
     {{ label() }}
   </label>
   @if (type() === 'select') {
-    <select
-      class="bg-surface p-1 rounded-md outline-0 focus:ring-2 focus:ring-blue-500"
-      [name]="inputName()"
-      [formControl]="control()"
-      (change)="onNumberChange($event, control())"
-    >
-      @for (option of selectOptions(); track option) {
-        <option [value]="option" >{{option | titlecase}}</option>
-      }
-    </select>
+  <select class="bg-surface p-1 rounded-md outline-0 focus:ring-2 focus:ring-primary" [name]="inputName()"
+    [formControl]="control()" (change)="onNumberChange($event, control())">
+    @for (option of selectOptions(); track option) {
+    <option [value]="option">{{option | titlecase}}</option>
+    }
+  </select>
   }
   @else if (type() === 'checkbox'){
-  <input
-    class="size-8 accent-blue-500 cursor-pointer"
-    type="checkbox"
-    [name]="inputName()"
-    [formControl]="control()"
-  />
+  <input class="size-8 accent-primary cursor-pointer" type="checkbox" [name]="inputName()" [formControl]="control()" />
   } @else if (type() !== "textarea") {
-  <input
-    class="bg-surface p-1 rounded-md outline-0 focus:ring-2 focus:ring-blue-500"
-    [type]="type()"
-    [name]="inputName()"
-    [formControl]="control()"
-    (change)="onNumberChange($event, control())"
-  />
+  <input class="bg-surface p-1 rounded-md outline-0 focus:ring-2 focus:ring-primary" [type]="type()"
+    [name]="inputName()" [formControl]="control()" (change)="onNumberChange($event, control())" />
 
   } @else{
-  <textarea
-    class="w-full bg-surface p-1 rounded-md resize-none outline-0 focus:ring-2 focus:ring-blue-500"
-    [name]="inputName()"
-    [formControl]="control()"
-  ></textarea>
-  } 
+  <textarea class="w-full bg-surface p-1 rounded-md resize-none outline-0 focus:ring-2 focus:ring-primary"
+    [name]="inputName()" [formControl]="control()"></textarea>
+  }
 
-   @if (showError && control().errors) {
-    <div class="text-red-500 text-sm mt-2 space-y-1">
-      @if (control().errors?.['required']) {
-        <p>This field is required</p>
-      }
-      @if (control().errors?.['min']) {
-        <p>The value must be greater than or equal to {{ control().errors?.['min'].min }}.</p>
-      }
-      @if (control().errors?.['minlength']) {
-        <p>Minimum{{ control().errors?.['minlength'].requiredLength }} characters</p>
-      }
-      @if (control().errors?.['maxlength']) {
-        <p>Maximum {{ control().errors?.['maxlength'].requiredLength }} characters</p>
-      }
-      @if (control().errors?.['email']) {
-        <p>Enter a valid email address</p>
-      }
-      @if (control().errors?.['notInteger']) {
-        <p>Must be an integer.</p>
-      }
-      @if (control().errors?.['decimalPlaces']) {
-        <p>Maximum {{ control().errors?.['decimalPlaces'].max }}allowed decimals</p>
-      }
-    </div>
+  @if (showError && control().errors) {
+  <div class="text-error text-sm mt-2 space-y-1">
+    @if (control().errors?.['required']) {
+    <p>This field is required</p>
+    }
+    @if (control().errors?.['min']) {
+    <p>The value must be greater than or equal to {{ control().errors?.['min'].min }}.</p>
+    }
+    @if (control().errors?.['minlength']) {
+    <p>Minimum{{ control().errors?.['minlength'].requiredLength }} characters</p>
+    }
+    @if (control().errors?.['maxlength']) {
+    <p>Maximum {{ control().errors?.['maxlength'].requiredLength }} characters</p>
+    }
+    @if (control().errors?.['email']) {
+    <p>Enter a valid email address</p>
+    }
+    @if (control().errors?.['notInteger']) {
+    <p>Must be an integer.</p>
+    }
+    @if (control().errors?.['decimalPlaces']) {
+    <p>Maximum {{ control().errors?.['decimalPlaces'].max }}allowed decimals</p>
+    }
+  </div>
   }
 </div>

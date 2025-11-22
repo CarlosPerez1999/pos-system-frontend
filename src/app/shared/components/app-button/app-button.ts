@@ -15,18 +15,18 @@ export class AppButton {
 
   baseStyles = `
   flex gap-2 justify-center items-center font-bold cursor-pointer rounded-lg  transition-color duration-300 
-  focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:outline-0
+  focus-visible:ring-2 focus-visible:ring-primary focus-visible:outline-0
   disabled:cursor-not-allowed disabled:opacity-60
   `;
 
   variants: Record<ButtonVariant, string> = {
-    primary: 'bg-blue-500 text-white shadow-md hover:bg-blue-600 ',
-    secondary: 'ring-2 ring-zinc-300  hover:ring-blue-600 hover:bg-background',
+    primary: 'bg-primary text-white shadow-md hover:bg-primary-hover ',
+    secondary: 'ring-2 ring-border-strong  hover:ring-primary hover:bg-background',
     ghost: 'hover:text-foreground hover:bg-background',
-    destructive: 'bg-red-500 text-white shadow-md hover:bg-red-600',
-    success: 'bg-green-500 text-white shadow-md hover:bg-green-600',
-    danger: 'bg-amber-500 text-white shadow-md hover:bg-amber-600',
-    info: 'bg-cyan-600 text-white shadow-md hover:bg-cyan-700',
+    destructive: 'bg-error text-white shadow-md hover:bg-error-hover',
+    success: 'bg-success text-white shadow-md hover:bg-success-hover',
+    danger: 'bg-warning text-white shadow-md hover:bg-warning-hover',
+    info: 'bg-info text-white shadow-md hover:bg-info-hover',
   };
 
   sizes: Record<ButtonSize, string> = {
@@ -37,9 +37,8 @@ export class AppButton {
   get styles(): string {
     const sizeClass = this.sizes[this.size()];
     const fullWidth = sizeClass !== this.sizes.icon ? 'w-full' : '';
-    return `${this.baseStyles} ${fullWidth} ${
-      this.variants[this.variant()]
-    } ${sizeClass}`;
+    return `${this.baseStyles} ${fullWidth} ${this.variants[this.variant()]
+      } ${sizeClass}`;
   }
 
   onClick() {

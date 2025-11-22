@@ -1,8 +1,8 @@
 <div
-    class="bg-surface rounded-lg p-6 shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-200/10">
+    class="bg-surface rounded-lg p-6 shadow-md hover:shadow-xl transition-all duration-300 border border-border hover:border-primary/30">
     <div class="flex items-center justify-between">
         <div class="flex-1">
-            <p class="text-sm text-gray-400 mb-1">{{ title() }}</p>
+            <p class="text-sm text-muted mb-1">{{ title() }}</p>
             <h3 class="text-2xl font-bold text-foreground">
                 @if (format() === 'currency') {
                 {{ value() | currency:'USD':'symbol':'1.2-2' }}
@@ -11,8 +11,8 @@
                 }
             </h3>
         </div>
-        <div class="bg-blue-500/20 p-3 rounded-full">
-            <app-icon [icon]="icon()" class="text-blue-400 text-2xl" />
+        <div class="bg-gradient-to-br from-primary/20 to-info/20 p-3 rounded-full ring-2 ring-primary/30">
+            <app-icon [icon]="icon()" class="text-primary text-2xl" />
         </div>
     </div>
 </div>

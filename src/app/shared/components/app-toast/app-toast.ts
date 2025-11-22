@@ -15,10 +15,10 @@ export class AppToast {
   toastData = this.toastService.toastData;
 
   typeClasses = {
-    info: 'bg-blue-500',
-    error: 'bg-red-500',
-    warning: 'bg-amber-500',
-    success: 'bg-green-500',
+    info: 'bg-info',
+    error: 'bg-error',
+    warning: 'bg-warning',
+    success: 'bg-success',
   };
 
   toastStyle = computed(() => {

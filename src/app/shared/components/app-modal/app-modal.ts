@@ -24,10 +24,10 @@ export class AppModal {
   type = input<'info' | 'error' | 'warning' | 'success'>('error');
 
   types = {
-    info: 'bg-blue-500',
-    error: 'bg-red-500',
-    warning: 'bg-amber-500',
-    success: 'bg-green-500',
+    info: 'bg-info',
+    error: 'bg-error',
+    warning: 'bg-warning',
+    success: 'bg-success',
   };
 
   titleStyle = computed(() => {

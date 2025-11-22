@@ -3,11 +3,48 @@
 @import "tailwind-scrollbar-hide/v4";
 
 @theme {
-  --color-background: #e4e4e7;
-  --color-foreground: #38383b;
-  --color-surface: #f6f6f9;
+  /* Base Layout Colors */
+  --color-background: hsl(240, 5%, 96%);
+  --color-foreground: hsl(240, 8%, 12%);
+  --color-surface: hsl(240, 20%, 99%);
+
+  /* Muted Text Colors */
+  --color-muted: hsl(240, 5%, 45%);
+  --color-muted-secondary: hsl(240, 5%, 60%);
+
+  /* Border Colors */
+  --color-border: hsl(240, 10%, 85%);
+  --color-border-strong: hsl(240, 10%, 70%);
+
+  /* Primary Brand Color - Vibrant Indigo */
+  --color-primary: hsl(239, 84%, 60%);
+  --color-primary-hover: hsl(239, 84%, 52%);
+  --color-primary-light: hsl(239, 84%, 95%);
+
+  /* Success Color - Vibrant Green */
+  --color-success: hsl(142, 76%, 42%);
+  --color-success-hover: hsl(142, 76%, 36%);
+  --color-success-light: hsl(142, 76%, 95%);
+
+  /* Error/Destructive Color - Vibrant Red */
+  --color-error: hsl(0, 84%, 60%);
+  --color-error-hover: hsl(0, 84%, 52%);
+  --color-error-light: hsl(0, 84%, 95%);
+
+  /* Warning Color - Warm Amber */
+  --color-warning: hsl(38, 92%, 50%);
+  --color-warning-hover: hsl(38, 92%, 42%);
+  --color-warning-light: hsl(38, 92%, 95%);
+
+  /* Info Color - Vibrant Cyan */
+  --color-info: hsl(188, 94%, 42%);
+  --color-info-hover: hsl(188, 94%, 36%);
+  --color-info-light: hsl(188, 94%, 95%);
+
+  /* Font Family */
   --font-jura: "Jura", sans-serif;
 
+  /* Animations */
   --animate-toast: toast-slide 4s ease-in-out;
 
   @keyframes toast-slide {
@@ -15,14 +52,17 @@
       opacity: 0;
       transform: translateX(200%);
     }
+
     20% {
       opacity: 1;
       transform: translateX(0);
     }
+
     80% {
       opacity: 1;
       transform: translateX(0);
     }
+
     100% {
       opacity: 0;
       transform: translateX(200%);
@@ -32,9 +72,43 @@
 
 @layer base {
   :root[data-theme="dark"] {
-    --color-background: #38383b;
-    --color-foreground: #e4e4e7;
-    --color-surface: #4c4c4f;
+    /* Base Layout Colors - Dark Theme */
+    --color-background: hsl(240, 8%, 12%);
+    --color-foreground: hsl(240, 5%, 96%);
+    --color-surface: hsl(240, 6%, 18%);
+
+    /* Muted Text Colors - Dark Theme */
+    --color-muted: hsl(240, 5%, 65%);
+    --color-muted-secondary: hsl(240, 5%, 50%);
+
+    /* Border Colors - Dark Theme */
+    --color-border: hsl(240, 6%, 30%);
+    --color-border-strong: hsl(240, 6%, 45%);
+
+    /* Primary Brand Color - Adjusted for Dark Theme */
+    --color-primary: hsl(239, 84%, 68%);
+    --color-primary-hover: hsl(239, 84%, 76%);
+    --color-primary-light: hsl(239, 84%, 15%);
+
+    /* Success Color - Adjusted for Dark Theme */
+    --color-success: hsl(142, 76%, 50%);
+    --color-success-hover: hsl(142, 76%, 58%);
+    --color-success-light: hsl(142, 76%, 15%);
+
+    /* Error Color - Adjusted for Dark Theme */
+    --color-error: hsl(0, 84%, 68%);
+    --color-error-hover: hsl(0, 84%, 76%);
+    --color-error-light: hsl(0, 84%, 15%);
+
+    /* Warning Color - Adjusted for Dark Theme */
+    --color-warning: hsl(38, 92%, 58%);
+    --color-warning-hover: hsl(38, 92%, 66%);
+    --color-warning-light: hsl(38, 92%, 15%);
+
+    /* Info Color - Adjusted for Dark Theme */
+    --color-info: hsl(188, 94%, 50%);
+    --color-info-hover: hsl(188, 94%, 58%);
+    --color-info-light: hsl(188, 94%, 15%);
   }
 }
 

@@ -1,4 +1,4 @@
-import { effect, inject, Injectable, signal } from '@angular/core';
+import { effect, inject, Injectable, signal, computed } from '@angular/core';
 import {
   HttpClient,
   HttpErrorResponse,
@@ -21,6 +21,7 @@ export class ProductsService {
   private readonly apiUrl = `${environment.API_URL}/products`;
   private products = signal<Product[]>([]);
   products$ = this.products.asReadonly();
+  availableProducts = computed(() => this.products().filter(p => p.stock > 0));
   private selectedProductId = signal<string | null>(null);
 
   isLoading = signal<boolean>(false);

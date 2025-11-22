@@ -10,7 +10,7 @@ import { tap } from 'rxjs';
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.API_URL}/auth`;
-  
+
   login(data: Pick<User, 'username' | 'password'>) {
     return this.http.post<authResponse>(`${this.apiUrl}/login`, data).pipe(
       tap((res) => localStorage.setItem('jwt', res.access_token)),
@@ -23,15 +23,15 @@ export class AuthService {
     );
   }
 
-  logout(){
-    localStorage.removeItem
+  logout() {
+    localStorage.removeItem('jwt');
   }
 
   validateToken() {
-    return this.http.post<Me>(`${this.apiUrl}/me`,{});
+    return this.http.post<Me>(`${this.apiUrl}/me`, {});
   }
 
-    getAuthToken(): string | null {
+  getAuthToken(): string | null {
     return localStorage.getItem('jwt');
   }
 }

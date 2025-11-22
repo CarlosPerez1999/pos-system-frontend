@@ -1,8 +1,6 @@
 @if (isOpen()) {
-<span
-  [ngClass]="toastStyle()"
-  class="fixed top-4 right-0 w-sm z-50 max-w-sm max-h-20 flex rounded-l-sm justify-center items-center text-white px-4 py-4 shadow-lg animate-toast"
->
+<span [ngClass]="toastStyle()"
+  class="fixed top-4 right-0 w-sm z-50 max-w-sm max-h-20 flex rounded-l-sm justify-center items-center text-white px-4 py-4 shadow-lg animate-toast">
   <p>{{ toastData()?.message }}</p>
 </span>
 }

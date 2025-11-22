@@ -29,16 +29,16 @@
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead>
-                        <tr class="border-b border-gray-700">
-                            <th class="text-left py-3 px-4 font-semibold text-gray-400">Sale ID</th>
-                            <th class="text-left py-3 px-4 font-semibold text-gray-400">Time</th>
-                            <th class="text-right py-3 px-4 font-semibold text-gray-400">Items</th>
-                            <th class="text-right py-3 px-4 font-semibold text-gray-400">Total</th>
+                        <tr class="border-b border-border">
+                            <th class="text-left py-3 px-4 font-semibold text-muted">Sale ID</th>
+                            <th class="text-left py-3 px-4 font-semibold text-muted">Time</th>
+                            <th class="text-right py-3 px-4 font-semibold text-muted">Items</th>
+                            <th class="text-right py-3 px-4 font-semibold text-muted">Total</th>
                         </tr>
                     </thead>
                     <tbody>
                         @for (sale of salesService.todaySales(); track sale.id) {
-                        <tr class="border-b border-gray-700/50 hover:bg-background transition-colors">
+                        <tr class="border-b border-border/50 hover:bg-background transition-colors">
                             <td class="py-3 px-4">#{{ sale.id }}</td>
                             <td class="py-3 px-4">{{ sale.date | date:'shortTime' }}</td>
                             <td class="text-right py-3 px-4">{{ sale.items.length }}</td>
@@ -51,7 +51,7 @@
                 </table>
             </div>
             } @else {
-            <p class="text-gray-400 text-center py-8">No sales recorded today</p>
+            <p class="text-muted text-center py-8">No sales recorded today</p>
             }
         </div>
     </div>

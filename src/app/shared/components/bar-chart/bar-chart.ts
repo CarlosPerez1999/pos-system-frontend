@@ -9,7 +9,7 @@ import { debounceTime } from 'rxjs/operators';
     selector: 'app-bar-chart',
     imports: [BaseChartDirective],
     template: `
-    <div class="w-full">
+    <div class="w-full h-full">
       <canvas baseChart [data]="data()" [options]="chartOptions()" type='bar'></canvas>
     </div>
   `,

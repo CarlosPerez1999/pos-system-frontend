@@ -3,6 +3,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../../environments/environment.development';
 import { CartItem } from '../interfaces/cart.interface';
 import { catchError, tap } from 'rxjs';
+import { Summary } from '../interfaces/summary.interface';
+import { Sale } from '../interfaces/sale.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -10,6 +12,8 @@ import { catchError, tap } from 'rxjs';
 export class SalesService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.API_URL}/sales`;
+  summary = signal<Summary | null>(null);
+  todaySales = signal<Sale[]>([]);
 
   private isLoading = signal<boolean>(false);
   private hasError = signal<string | null>(null);
@@ -37,4 +41,14 @@ export class SalesService {
         })
       );
   }
+
+  getSummary() {
+    this.http.get<Summary>(`${this.apiUrl}/summary`).subscribe(res => this.summary.set(res));
+  }
+
+  getTodaySales() {
+    this.http.get<Sale[]>(`${this.apiUrl}/of-the-day`).subscribe(res => this.todaySales.set(res));
+  }
+
+
 }

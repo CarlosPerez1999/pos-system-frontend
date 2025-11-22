@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AppHeader} from '../../../shared/components/app-header/app-header';
+import { AppHeader } from '../../../shared/components/app-header/app-header';
 import { TabMenuItem, AppTabMenu } from '../../../shared/components/app-tab-menu/app-tab-menu';
 
 
@@ -10,7 +10,7 @@ import { TabMenuItem, AppTabMenu } from '../../../shared/components/app-tab-menu
   templateUrl: './layout.html',
 })
 export class AdminLayout {
-  tabMenuItems:TabMenuItem[] = [
+  tabMenuItems: TabMenuItem[] = [
     {
       label: 'Dashboard',
       href: '/admin/dashboard',

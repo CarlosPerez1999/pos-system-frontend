@@ -1,46 +1,29 @@
 <section class="w-full h-full flex flex-col lg:flex-row gap-0 lg:gap-6 overflow-hidden">
   <div class="flex-1 flex flex-col gap-0 min-h-0">
     <div class="sticky top-0 z-5 bg-background p-4 sm:p-6 ">
-      <app-search-bar
-        class="flex-shrink-0"
-        placeholder="Search for product (name, code or SKU)"
-        (onSearch)="productsService.setSearchQuery($event)"
-      ></app-search-bar>
+      <app-search-bar class="flex-shrink-0" placeholder="Search for product (name, code or SKU)"
+        (onSearch)="productsService.setSearchQuery($event)"></app-search-bar>
     </div>
-    <app-grid 
-      [loadMore]="onLoadMore" 
-      [itemCount]="(productsService.products$()).length"
-      class="flex-1 min-h-0"
-    >
-      @for (product of productsService.products$(); track product.id) {
+    <app-grid [loadMore]="onLoadMore" [itemCount]="productsService.availableProducts().length" class="flex-1 min-h-0">
+      @for (product of productsService.availableProducts(); track product.id) {
       <product-card [product]="product"></product-card>
       }
     </app-grid>
   </div>
-  
+
   <!-- Desktop Cart (hidden on mobile) -->
   <aside class="hidden lg:flex lg:flex-col w-96 flex-shrink-0 min-h-0 gap-0 lg:p-6 lg:gap-6">
     <sales-shopping-cart class="h-full"></sales-shopping-cart>
   </aside>
 
   <!-- Mobile Floating Button -->
-  <button
-    (click)="openCartModal()"
+  <button (click)="openCartModal()"
     class="lg:hidden fixed bottom-6 right-6 w-16 h-16 rounded-full bg-blue-500 hover:bg-blue-600 text-white shadow-lg flex items-center justify-center text-sm font-bold transition-all duration-200 active:scale-95 z-40"
-    [class.ring-2]="cartService.productsInCart()"
-    [class.ring-green-400]="cartService.productsInCart() > 0"
-  >
+    [class.ring-2]="cartService.productsInCart()" [class.ring-green-400]="cartService.productsInCart() > 0">
     <div class="flex flex-col items-center justify-center">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
         <path
-          d="M7 22q-.825 0-1.412-.587T5 20t.588-1.412T7 18t1.413.588T9 20t-.587 1.413T7 22m10 0q-.825 0-1.412-.587T15 20t.588-1.412T17 18t1.413.588T19 20t-.587 1.413T17 22M6.15 6l2.4 5h7l2.75-5zM5.2 4h14.75q.575 0 .875.513t.025 1.037l-3.55 6.4q-.275.5-.737.775T15.55 13H8.1L7 15h12v2H7q-1.125 0-1.7-.987t-.05-1.963L6.6 11.6L3 4H1V2h3.25zm3.35 7h7z"
-        />
+          d="M7 22q-.825 0-1.412-.587T5 20t.588-1.412T7 18t1.413.588T9 20t-.587 1.413T7 22m10 0q-.825 0-1.412-.587T15 20t.588-1.412T17 18t1.413.588T19 20t-.587 1.413T17 22M6.15 6l2.4 5h7l2.75-5zM5.2 4h14.75q.575 0 .875.513t.025 1.037l-3.55 6.4q-.275.5-.737.775T15.55 13H8.1L7 15h12v2H7q-1.125 0-1.7-.987t-.05-1.963L6.6 11.6L3 4H1V2h3.25zm3.35 7h7z" />
       </svg>
       @if (cartService.productsInCart() > 0) {
       <span class="text-xs mt-0.5">{{ cartService.productsInCart() }}</span>
@@ -49,62 +32,33 @@
   </button>
 </section>
 
-<!-- Mobile Cart Modal -->
-<app-modal
-  modalId="mobile-cart"
-  title="Shopping Cart"
-  type="info"
-  (onClose)="closeCartModal()"
->
+<app-modal modalId="mobile-cart" title="Shopping Cart" type="info" (onClose)="closeCartModal()">
   <div content class="h-96 lg:h-[600px]">
     <sales-shopping-cart></sales-shopping-cart>
   </div>
 </app-modal>
 
 
-<app-modal
-  (onClose)="cancelSale()"
-  modalId="sale-confirmation"
-  title="Sale Confirmation"
-  type="success"
->
+<app-modal (onClose)="cancelSale()" modalId="sale-confirmation" title="Sale Confirmation" type="success">
   <span content>
     <p class="flex justify-between">
       Total to pay: <span>{{ cartService.total() | currency }}</span>
     </p>
-    <label class="relative flex justify-between gap-8" for=""
-      >Customer Payment:
+    <label class="relative flex justify-between gap-8" for="">Customer Payment:
       <div class="relative">
-        <span class="absolute left-2 top-1/2 -translate-y-1/2 text-zinc-400"
-          >$</span
-        >
-        <input
-          [(ngModel)]="customerPayment"
-          type="number"
-          class="pl-6 w-30 text-right rounded-md bg-surface"
-        />
+        <span class="absolute left-2 top-1/2 -translate-y-1/2 text-zinc-400">$</span>
+        <input [(ngModel)]="customerPayment" type="number" class="pl-6 w-30 text-right rounded-md bg-surface" />
       </div>
     </label>
-    <p
-      class="flex justify-between items-end text-green-500 mt-2 text-xl sm:text-2xl"
-    >
+    <p class="flex justify-between items-end text-green-500 mt-2 text-xl sm:text-2xl">
       Change to return: <span>{{ calculateChange() | currency }}</span>
     </p>
   </span>
   <span footer class="w-full flex justify-center gap-4 mt-2">
-    <app-button
-      class="w-full"
-      variant="destructive"
-      (clickEmitter)="cancelSale()"
-    >
+    <app-button class="w-full" variant="destructive" (clickEmitter)="cancelSale()">
       <span label>Cancel</span>
     </app-button>
-    <app-button
-      (clickEmitter)="confirmSale()"
-      [disabled]="!canConfirmSale()"
-      class="w-full"
-      variant="primary"
-    >
+    <app-button (clickEmitter)="confirmSale()" [disabled]="!canConfirmSale()" class="w-full" variant="primary">
       <span label>Confirm</span>
     </app-button>
   </span>

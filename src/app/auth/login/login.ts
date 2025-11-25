@@ -14,6 +14,10 @@ import { ToastService } from '../../core/services/toast-service';
   imports: [AppInputForm, ReactiveFormsModule, AppButton, AppIcon],
   templateUrl: './login.html',
 })
+/**
+ * Login component handling user authentication.
+ * Provides a form for username and password input.
+ */
 export class Login {
   authService = inject(AuthService);
   router = inject(Router);
@@ -32,6 +36,11 @@ export class Login {
     }),
   });
 
+  /**
+   * Submits the login form.
+   * On success, validates the token and redirects based on user role.
+   * On failure, displays an error toast.
+   */
   onLogin() {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.getRawValue()).subscribe({
@@ -53,10 +62,11 @@ export class Login {
         error: (err) => {
           console.error('Login error:', err);
           this.toastService.showToast({
-            type:'error',
-            message:'Incorrect username or password'})
+            type: 'error',
+            message: 'Incorrect username or password',
+          });
         },
       });
     }
-  } 
+  }
 }

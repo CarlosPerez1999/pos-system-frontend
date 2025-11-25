@@ -10,14 +10,24 @@ import { BarChart } from '../../../../shared/components/bar-chart/bar-chart';
   imports: [KpiCard, DatePipe, CurrencyPipe, BarChart],
   templateUrl: './dashboard.html',
 })
+/**
+ * Dashboard page displaying key performance indicators and sales charts.
+ */
 export class DashboardPage implements OnInit {
   salesService = inject(SalesService);
 
+  /**
+   * Computes the top products from the sales summary.
+   */
   topProducts = computed(() => {
     const summary = this.salesService.summary();
     return summary ? summary.topProducts : [];
   });
 
+  /**
+   * Prepares the data for the bar chart based on top products.
+   * Updates dynamically when sales summary changes.
+   */
   barChartData = computed<ChartData<'bar'>>(() => {
     const summary = this.salesService.summary();
     if (summary) {

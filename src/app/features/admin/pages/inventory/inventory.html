@@ -1,13 +1,13 @@
 <section class="w-full px-5 pb-5 flex flex-col gap-4 items-center">
-  <div class="sticky w-full top-0 z-10 bg-background p-4 sm:p-6 ">
-      <app-search-bar
-        class="flex-shrink-0"
-        placeholder="Search for product (name, code or SKU)"
-        (onSearch)="productsService.setSearchQuery($event)"
-      ></app-search-bar>
-    </div>
+  <div class="sticky w-full top-0 z-10 bg-background p-4 sm:p-6">
+    <app-search-bar
+      class="flex-shrink-0"
+      placeholder="Search for product (name, code or SKU)"
+      (onSearch)="productsService.setSearchQuery($event)"
+    ></app-search-bar>
+  </div>
   <app-table
-    class="w-full "
+    class="w-full"
     [columns]="productCols"
     [items]="productsService.products$()"
     [totalItems]="productsService.totalProducts()"
@@ -43,7 +43,7 @@
 
 <app-modal title="Adjust Stock" modalId="adjust-stock" type="info">
   <inventory-movement-form
-    [productId]="selectedProduct()"
+    [productId]="selectedProduct()?.id ?? null"
     content
   ></inventory-movement-form>
 </app-modal>

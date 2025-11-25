@@ -26,10 +26,10 @@
         <div class="w-full bg-surface rounded-lg p-6 shadow-md flex flex-col overflow-auto">
             <h3 class="text-xl font-bold mb-4">Today's Sales</h3>
             @if (salesService.todaySales().length > 0) {
-            <div class="overflow-x-auto">
+            <div class="overflow-x-auto scrollbar-hide ">
                 <table class="w-full">
                     <thead>
-                        <tr class="border-b border-border">
+                        <tr class="border-b border-border sticky w-full top-0 z-10 bg-surface p-4 sm:p-6 ">
                             <th class="text-left py-3 px-4 font-semibold text-muted">Sale ID</th>
                             <th class="text-left py-3 px-4 font-semibold text-muted">Time</th>
                             <th class="text-right py-3 px-4 font-semibold text-muted">Items</th>

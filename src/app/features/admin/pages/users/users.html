@@ -1,0 +1,32 @@
+<section class="w-full h-full px-5 pb-5 flex flex-col gap-4 items-center">
+  <app-table
+    class="w-full"
+    [columns]="columns"
+    [items]="usersService.users$()"
+    [totalItems]="usersService.totalUsers()"
+    [nextPageFn]="usersService.nextPage"
+    [hasMore]="usersService.hasMore()"
+    (getSelectedItemEmit)="selectedUser.set($event)"
+    [pageSize]="12"
+  >
+    <app-button (clickEmitter)="onAdd()" variant="success">
+      <span label>Add</span>
+    </app-button>
+    <app-button (clickEmitter)="onUpdate()">
+      <span label>Edit</span>
+    </app-button>
+    <app-button variant="destructive">
+      <span label>Delete</span>
+    </app-button>
+  </app-table>
+</section>
+
+<app-modal type="info" modalId="create-user" title="Add user">
+  <user-add-form content></user-add-form>
+</app-modal>
+<app-modal type="info" modalId="create-user" title="Add user">
+  <user-add-form content [user]="selectedUser()"></user-add-form>
+</app-modal>
+<app-modal type="info" modalId="update-user" title="Update user">
+  <user-add-form content [user]="selectedUser()"></user-add-form>
+</app-modal>

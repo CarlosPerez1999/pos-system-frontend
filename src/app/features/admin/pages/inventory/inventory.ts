@@ -30,12 +30,15 @@ import {
   ],
   templateUrl: './inventory.html',
 })
+/**
+ * Inventory page for managing product stock and viewing movements.
+ */
 export class InventoryPage implements OnDestroy {
   productsService = inject(ProductsService);
   inventoryService = inject(InventoryService);
   modalService = inject(ModalService);
   toastService = inject(ToastService);
-  selectedProduct = signal<string | null>(null);
+  selectedProduct = signal<Product | null>(null);
   productAdjustments = signal<InventoryMovementResponse | null>(null);
 
   productCols: TableColumn<Product>[] = [
@@ -100,6 +103,10 @@ export class InventoryPage implements OnDestroy {
     },
   ];
 
+  /**
+   * Opens the stock adjustment modal for the selected product.
+   * Shows a toast if no product is selected.
+   */
   openAdjustmentForm() {
     const selectedProduct = this.selectedProduct();
     if (!selectedProduct) {
@@ -113,6 +120,9 @@ export class InventoryPage implements OnDestroy {
     this.modalService.openModal('adjust-stock');
   }
 
+  /**
+   * Opens the modal to view stock adjustments history for the selected product.
+   */
   openAdjustmentsModal() {
     const selectedProduct = this.selectedProduct();
     if (!selectedProduct) {
@@ -122,7 +132,7 @@ export class InventoryPage implements OnDestroy {
       });
       return;
     }
-    this.inventoryService.setProductId(selectedProduct);
+    this.inventoryService.setProductId(selectedProduct.id);
     this.modalService.openModal('product-adjustments');
   }
 

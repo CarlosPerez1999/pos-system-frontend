@@ -21,11 +21,15 @@ import { ToastService } from '../../../../core/services/toast-service';
     ProductForm,
   ],
   templateUrl: './products.html',
-   host: {
-    class: 'h-full flex flex-col'
-  }
+  host: {
+    class: 'h-full flex flex-col',
+  },
 })
-export class ProductsPage implements OnDestroy{
+/**
+ * Products page for managing the product catalog.
+ * Supports creating, editing, and deleting products.
+ */
+export class ProductsPage implements OnDestroy {
   productsService = inject(ProductsService);
   modalService = inject(ModalService);
   toastService = inject(ToastService);
@@ -37,21 +41,37 @@ export class ProductsPage implements OnDestroy{
     this.productsService.nextPage();
   };
 
+  /**
+   * Opens the modal to create a new product.
+   * Resets the selected product.
+   */
   onCreateProduct() {
     this.selectedProduct.set(null);
     this.modalService.openModal('create-product');
   }
 
+  /**
+   * Opens the modal to edit an existing product.
+   * @param product The product to edit.
+   */
   onEditProduct(product: Product) {
     this.selectedProduct.set(product);
     this.modalService.openModal('create-product');
   }
 
+  /**
+   * Opens the confirmation modal to delete a product.
+   * @param product The product to delete.
+   */
   onDeleteProduct(product: Product) {
     this.selectedProduct.set(product);
     this.modalService.openModal('delete-product');
   }
 
+  /**
+   * Confirms the deletion of the selected product.
+   * Calls the service to delete and shows a toast on success/error.
+   */
   confirmDelete() {
     const product = this.selectedProduct();
     if (!product) {

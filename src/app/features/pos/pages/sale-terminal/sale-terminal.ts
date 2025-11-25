@@ -30,6 +30,10 @@ import { ProductCard } from '../../../products/components/product-card/product-c
   },
   templateUrl: './sale-terminal.html',
 })
+/**
+ * Sale Terminal page for processing sales in the POS system.
+ * Manages the shopping cart, product selection, and payment processing.
+ */
 export class SaleTerminal {
   cartService = inject(CartService);
   modalService = inject(ModalService);
@@ -39,6 +43,10 @@ export class SaleTerminal {
   customerPayment = model<number>(NaN);
   cartItemsCount = computed(() => this.cartService.getProducts()().length);
 
+  /**
+   * Calculates the change to give back to the customer.
+   * Returns 0 if payment is insufficient or invalid.
+   */
   calculateChange = computed(() => {
     const payment = this.customerPayment();
     const total = this.cartService.total();
@@ -55,6 +63,10 @@ export class SaleTerminal {
     this.modalService.closeModal('mobile-cart');
   }
 
+  /**
+   * Confirms and processes the sale.
+   * Sends the cart items to the backend and clears the cart on success.
+   */
   confirmSale() {
     const products = this.cartService.getProducts();
 
@@ -79,6 +91,9 @@ export class SaleTerminal {
     });
   }
 
+  /**
+   * Checks if the sale can be confirmed based on payment amount.
+   */
   canConfirmSale = computed(() => {
     const payment = this.customerPayment();
     const total = this.cartService.total();

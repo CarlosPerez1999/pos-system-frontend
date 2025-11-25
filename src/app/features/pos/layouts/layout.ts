@@ -4,9 +4,11 @@ import { AppHeader } from '../../../shared/components/app-header/app-header';
 
 @Component({
   selector: 'app-pos-layout',
-  imports: [RouterOutlet, AppHeader ],
+  imports: [RouterOutlet, AppHeader],
   templateUrl: './layout.html',
 })
-export default class PosLayout {
-
-}
+/**
+ * Main layout for the POS section.
+ * Includes the header for seller access.
+ */
+export default class PosLayout {}

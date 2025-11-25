@@ -11,6 +11,13 @@ export interface User {
   updatedAt: Date;
 }
 
+export interface UserResponse {
+  items: User[];
+  limit: number;
+  offset: number;
+  total: number;
+}
+
 export interface authResponse {
   access_token: string;
 }
@@ -22,10 +29,10 @@ export interface Me {
   payload: {
     exp: number;
     iat: number;
-    role: "seller" | "admin";
+    role: 'seller' | 'admin';
     sub: string;
     username: string;
   };
 }
 
-export interface ProductUpdate extends Partial<UserCreate> {}
+export interface UserUpdate extends Partial<UserCreate> {}

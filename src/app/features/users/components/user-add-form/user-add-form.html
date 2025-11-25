@@ -1,0 +1,44 @@
+<form [formGroup]="userForm" class="flex flex-col gap-4">
+  <div class="grid grid-cols-2 gap-4">
+    <app-input-form
+      inputName="name"
+      [control]="userForm.controls.name"
+      label="Name"
+    ></app-input-form>
+    <app-input-form
+      inputName="username"
+      [control]="userForm.controls.username"
+      label="Username"
+    ></app-input-form>
+    <app-input-form
+      inputName="email"
+      [control]="userForm.controls.email"
+      label="Email"
+    ></app-input-form>
+    <app-input-form
+      inputName="password"
+      [control]="userForm.controls.password"
+      label="Password"
+    ></app-input-form>
+    <app-input-form
+      type="select"
+      inputName="role"
+      [control]="userForm.controls.role"
+      label="Role"
+      [selectOptions]="['seller', 'admin']"
+    ></app-input-form>
+    <app-input-form
+      type="checkbox"
+      inputName="isActive"
+      [control]="userForm.controls.isActive"
+      label="Active"
+    ></app-input-form>
+  </div>
+  <app-button
+    (clickEmitter)="onSubmit()"
+    [disabled]="userForm.invalid"
+    variant="primary"
+  >
+    <span label>{{ user() ? "Update" : "Save" }}</span>
+  </app-button>
+</form>

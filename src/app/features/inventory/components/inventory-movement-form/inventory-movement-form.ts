@@ -13,6 +13,10 @@ import { ProductsService } from '../../../products/services/products-service';
   imports: [ReactiveFormsModule, AppInputForm, AppButton],
   templateUrl: './inventory-movement-form.html',
 })
+/**
+ * Form component for creating inventory movements (stock in/out).
+ * Handles form validation and submission.
+ */
 export class InventoryMovementForm {
   inventoryService = inject(InventoryService);
   productsService = inject(ProductsService);
@@ -21,6 +25,9 @@ export class InventoryMovementForm {
   productId = input.required<string | null>();
   fb = inject(FormBuilder);
 
+  /**
+   * Effect to update the selected product in the service when the input changes.
+   */
   selectedProductEffect = effect(() => {
     const productId = this.productId();
     if (!productId) return;
@@ -42,12 +49,19 @@ export class InventoryMovementForm {
     }),
   });
 
+  /**
+   * Effect to reset the form when the modal is closed.
+   */
   formEffect = effect(() => {
     if (!this.modalService.isOpen('create-product')) {
       this.inventoryMovementForm.reset();
     }
   });
 
+  /**
+   * Submits the form to create a new movement.
+   * Reloads product data on success.
+   */
   onSubmit() {
     if (this.inventoryMovementForm.valid) {
       const productId = this.productId();

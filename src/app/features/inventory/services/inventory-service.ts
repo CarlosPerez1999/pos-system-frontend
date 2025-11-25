@@ -16,6 +16,10 @@ import { Product, ProductsResponse } from '../../../core/models/product.model';
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * Service for managing inventory movements and low stock products.
+ * Handles fetching, creating, and deleting inventory records.
+ */
 export class InventoryService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.API_URL}/inventory`;
@@ -38,6 +42,10 @@ export class InventoryService {
   totalLowStock = signal(0);
   private isLoadingLowStock = signal(false);
 
+  /**
+   * Resource for fetching inventory movements with pagination and filtering.
+   * Reloads when offset, limit, or productId changes.
+   */
   movementsResource = httpResource<InventoryMovementResponse | undefined>(
     () => ({
       url: this.apiUrl,
@@ -49,6 +57,10 @@ export class InventoryService {
     })
   );
 
+  /**
+   * Resource for fetching low stock products.
+   * Reloads when offset or limit changes.
+   */
   lowStockResource = httpResource<ProductsResponse | undefined>(() => ({
     url: `${this.apiUrl}/low-stock`,
     params: {
@@ -85,6 +97,11 @@ export class InventoryService {
     this.isLoading.set(false);
   });
 
+  /**
+   * Creates a new inventory movement (e.g., stock in/out).
+   * Reloads movements and low stock resources on success.
+   * @param data The movement data.
+   */
   createMovement(data: InventoryMovementCreate) {
     this.isLoading.set(true);
     this.hasError.set(null);
@@ -125,6 +142,11 @@ export class InventoryService {
     return this.movements().length < this.totalMovements();
   }
 
+  /**
+   * Sets the product ID filter for movements.
+   * Resets pagination and reloads the resource.
+   * @param id The product ID.
+   */
   setProductId(id: string) {
     this.movements.set([]);
     this.totalMovements.set(0);

@@ -12,6 +12,10 @@ import {
   imports: [FormsModule, ReactiveFormsModule, TitleCasePipe],
   templateUrl: './app-input-form.html',
 })
+/**
+ * Reusable form input component supporting various input types.
+ * Handles validation display and value parsing.
+ */
 export class AppInputForm {
   type = input<
     | 'text'
@@ -27,11 +31,19 @@ export class AppInputForm {
   control = input.required<FormControl>();
   inputName = input.required<string>();
 
+  /**
+   * Checks if the control has validation errors and has been touched or dirty.
+   */
   get showError(): boolean {
     return (
       this.control().invalid && (this.control().touched || this.control().dirty)
     );
   }
+  /**
+   * Handles input changes for number types to ensure correct parsing.
+   * @param event The input change event.
+   * @param control The form control to update.
+   */
   onNumberChange(event: Event, control: AbstractControl): void {
     const input = event.target as HTMLInputElement;
     const value = input.value;

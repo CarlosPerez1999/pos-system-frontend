@@ -9,6 +9,10 @@ import { AppIcon } from '../app-icon/app-icon';
   imports: [NgClass, AppIcon],
   templateUrl: './app-toast.html',
 })
+/**
+ * Toast component for displaying notifications.
+ * Subscribes to ToastService to show/hide messages.
+ */
 export class AppToast {
   private toastService = inject(ToastService);
 
@@ -22,6 +26,9 @@ export class AppToast {
     success: 'bg-success',
   };
 
+  /**
+   * Computes the icon name based on the toast type.
+   */
   toastIcon = computed(() => {
     const type = this.toastData()?.type ?? 'info';
     switch (type) {

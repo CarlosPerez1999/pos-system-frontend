@@ -7,8 +7,11 @@ import 'iconify-icon';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './app-icon.html',
 })
+/**
+ * Wrapper component for Iconify icons.
+ */
 export class AppIcon {
-  icon = input.required<string>()
-  width = input<string>('24')
-  height = input<string>('24')
+  icon = input.required<string>();
+  width = input<string>('24');
+  height = input<string>('24');
 }

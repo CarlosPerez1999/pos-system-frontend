@@ -11,6 +11,9 @@ import { CartService } from '../../../features/sales/services/cart-service';
   imports: [AppButton, AppIcon],
   templateUrl: './app-header.html',
 })
+/**
+ * Header component containing the application title, theme toggle, and user actions.
+ */
 export class AppHeader {
   title = 'POS System';
   subTitle = input<string>('');
@@ -19,9 +22,12 @@ export class AppHeader {
   cartService = inject(CartService);
   router = inject(Router);
 
+  /**
+   * Logs out the current user, clears the cart, and redirects to the login page.
+   */
   logout() {
     this.router.navigate(['/']);
     localStorage.removeItem('jwt');
-    this.cartService.clearCart()
+    this.cartService.clearCart();
   }
 }

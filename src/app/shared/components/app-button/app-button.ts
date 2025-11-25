@@ -6,11 +6,15 @@ import { ButtonSize, ButtonVariant } from './app-button-types';
   imports: [],
   templateUrl: './app-button.html',
 })
+/**
+ * Reusable button component with support for variants and sizes.
+ */
 export class AppButton {
   variant = input<ButtonVariant>('primary');
   size = input<ButtonSize>('auto');
   disabled = input<boolean>(false);
 
+  /** Event emitted when the button is clicked. */
   clickEmitter = output();
 
   baseStyles = `
@@ -21,7 +25,8 @@ export class AppButton {
 
   variants: Record<ButtonVariant, string> = {
     primary: 'bg-primary text-white shadow-md hover:bg-primary-hover ',
-    secondary: 'ring-2 ring-border-strong  hover:ring-primary hover:bg-background',
+    secondary:
+      'ring-2 ring-border-strong  hover:ring-primary hover:bg-background',
     ghost: 'hover:text-foreground hover:bg-background',
     destructive: 'bg-error text-white shadow-md hover:bg-error-hover',
     success: 'bg-success text-white shadow-md hover:bg-success-hover',
@@ -31,16 +36,21 @@ export class AppButton {
 
   sizes: Record<ButtonSize, string> = {
     icon: 'p-2.5 size-10 aspect-square',
-    auto: 'py-1.5 px-3 text-sm sm:px-4 sm:text-base md:px-5 md:text-lg'
+    auto: 'py-1.5 px-3 text-sm sm:px-4 sm:text-base md:px-5 md:text-lg',
   };
 
   get styles(): string {
     const sizeClass = this.sizes[this.size()];
     const fullWidth = sizeClass !== this.sizes.icon ? 'w-full' : '';
-    return `${this.baseStyles} ${fullWidth} ${this.variants[this.variant()]
-      } ${sizeClass}`;
+    return `${this.baseStyles} ${fullWidth} ${
+      this.variants[this.variant()]
+    } ${sizeClass}`;
   }
 
+  /**
+   * Handles the button click event.
+   * Prevents emission if the button is disabled.
+   */
   onClick() {
     if (this.disabled()) return;
     this.clickEmitter.emit();

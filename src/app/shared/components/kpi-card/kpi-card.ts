@@ -3,13 +3,17 @@ import { AppIcon } from '../app-icon/app-icon';
 import { CurrencyPipe, DecimalPipe } from '@angular/common';
 
 @Component({
-    selector: 'app-kpi-card',
-    imports: [AppIcon, CurrencyPipe, DecimalPipe],
-    templateUrl: './kpi-card.html',
+  selector: 'app-kpi-card',
+  imports: [AppIcon, CurrencyPipe, DecimalPipe],
+  templateUrl: './kpi-card.html',
 })
+/**
+ * Component to display Key Performance Indicators (KPIs).
+ * Supports currency and number formatting.
+ */
 export class KpiCard {
-    title = input.required<string>();
-    value = input.required<number>();
-    icon = input.required<string>();
-    format = input<'currency' | 'number'>('number');
+  title = input.required<string>();
+  value = input.required<number>();
+  icon = input.required<string>();
+  format = input<'currency' | 'number'>('number');
 }

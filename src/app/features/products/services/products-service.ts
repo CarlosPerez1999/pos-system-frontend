@@ -16,12 +16,18 @@ import { environment } from '../../../../environments/environment.development';
 @Injectable({
   providedIn: 'root',
 })
+/**
+ * Service for managing product data.
+ * Handles CRUD operations, pagination, and search for products.
+ */
 export class ProductsService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = `${environment.API_URL}/products`;
   private products = signal<Product[]>([]);
   products$ = this.products.asReadonly();
-  availableProducts = computed(() => this.products().filter(p => p.stock > 0));
+  availableProducts = computed(() =>
+    this.products().filter((p) => p.stock > 0)
+  );
   private selectedProductId = signal<string | null>(null);
 
   isLoading = signal<boolean>(false);
@@ -31,6 +37,10 @@ export class ProductsService {
   private searchQuery = signal('');
   totalProducts = signal(0);
 
+  /**
+   * Resource for fetching products with pagination and search.
+   * Automatically reloads when params change.
+   */
   productsResource = httpResource<ProductsResponse | undefined>(() => ({
     url: `${this.apiUrl}`,
     params: {
@@ -62,6 +72,11 @@ export class ProductsService {
     this.selectedProductId.set(id);
   }
 
+  /**
+   * Creates a new product.
+   * Reloads the product list on success.
+   * @param data The product data to create.
+   */
   createProduct(data: ProductCreate) {
     this.isLoading.set(true);
     this.hasError.set(null);
@@ -76,6 +91,12 @@ export class ProductsService {
     );
   }
 
+  /**
+   * Updates an existing product.
+   * Reloads the product list on success.
+   * @param id The ID of the product to update.
+   * @param data The updated product data.
+   */
   updateProduct(id: string, data: ProductUpdate) {
     this.isLoading.set(true);
     this.hasError.set(null);
@@ -90,6 +111,11 @@ export class ProductsService {
     );
   }
 
+  /**
+   * Deletes a product by ID.
+   * Reloads the product list on success.
+   * @param id The ID of the product to delete.
+   */
   deleteProduct(id: string) {
     this.isLoading.set(true);
     this.hasError.set(null);
@@ -115,6 +141,10 @@ export class ProductsService {
     return this.products().length < this.totalProducts();
   }
 
+  /**
+   * Updates the search query and resets pagination.
+   * @param newQuery The new search term.
+   */
   setSearchQuery(newQuery: string) {
     this.products.set([]);
     this.totalProducts.set(0);

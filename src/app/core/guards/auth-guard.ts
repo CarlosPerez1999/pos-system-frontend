@@ -3,6 +3,11 @@ import { CanActivateFn, Router } from '@angular/router';
 import { AuthService } from '../../auth/auth-service';
 import { map, catchError, of } from 'rxjs';
 
+/**
+ * Guard to protect routes based on user authentication and role.
+ * Redirects users to their respective dashboards if already logged in.
+ * Validates the token and checks permissions.
+ */
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);

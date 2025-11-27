@@ -41,14 +41,19 @@ export class ProductsService {
    * Resource for fetching products with pagination and search.
    * Automatically reloads when params change.
    */
-  productsResource = httpResource<ProductsResponse | undefined>(() => ({
-    url: `${this.apiUrl}`,
-    params: {
+  productsResource = httpResource<ProductsResponse | undefined>(() => {
+    const params: Record<string, string | number | boolean> = {
       offset: this.offset(),
       limit: this.limit(),
-      search: this.searchQuery(),
-    },
-  }));
+    };
+    if (this.searchQuery()) {
+      params['search'] = this.searchQuery();
+    }
+    return {
+      url: `${this.apiUrl}`,
+      params,
+    };
+  });
 
   productsEffect = effect(() => {
     const res = this.productsResource.value();

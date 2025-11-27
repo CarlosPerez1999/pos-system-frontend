@@ -1,0 +1,8 @@
+[build]
+  command = "npm run build"
+  publish = "dist/pos_system_ui/browser"
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

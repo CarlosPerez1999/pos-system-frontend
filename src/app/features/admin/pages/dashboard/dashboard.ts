@@ -61,9 +61,7 @@ export class DashboardPage implements OnInit {
   });
 
   ngOnInit(): void {
-    if (!this.salesService.summary()) {
-      this.salesService.getSummary();
-    }
+    this.salesService.getSummary();
     this.salesService.getTodaySales();
   }
 }

@@ -42,7 +42,11 @@ export class SalesService {
         items: listItems,
       })
       .pipe(
-        tap(() => this.isLoading.set(false)),
+        tap(() => {
+          this.isLoading.set(false);
+          this.getSummary();
+          this.getTodaySales();
+        }),
         catchError((error: HttpErrorResponse) => {
           this.hasError.set(error.error.message || 'Error creating product');
           this.isLoading.set(false);

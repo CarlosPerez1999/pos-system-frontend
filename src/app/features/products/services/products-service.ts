@@ -11,7 +11,7 @@ import {
   ProductUpdate,
 } from '../../../core/models/product.model';
 import { catchError, tap } from 'rxjs';
-import { environment } from '../../../../environments/environment.development';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',

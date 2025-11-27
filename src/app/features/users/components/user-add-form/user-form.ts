@@ -90,28 +90,32 @@ export class UserForm {
    * Handles success and error responses with toasts.
    */
   onSubmit() {
-    if (this.userForm.valid) {
-      if (!this.user()) {
-        const newUser: UserCreate = this.userForm.getRawValue() as UserCreate;
-        this.usersService.createUser(newUser).subscribe({
-          next: () => {
-            this.modalService.closeModal('create-user');
-            this.toastService.showToast({
-              type: 'success',
-              message: 'User added successfully',
-            });
-          },
-          error: (err) => {
-            console.error(err);
-            this.toastService.showToast({
-              type: 'error',
-              message: 'Failed to add user',
-            });
-            this.modalService.closeModal('create-user');
-          },
-        });
-      }
+    if (this.userForm.invalid) {
+      return;
     }
+
+    if (!this.user()) {
+      const newUser: UserCreate = this.userForm.getRawValue() as UserCreate;
+      this.usersService.createUser(newUser).subscribe({
+        next: () => {
+          this.modalService.closeModal('create-user');
+          this.toastService.showToast({
+            type: 'success',
+            message: 'User added successfully',
+          });
+        },
+        error: (err) => {
+          console.error(err);
+          this.toastService.showToast({
+            type: 'error',
+            message: 'Failed to add user',
+          });
+          this.modalService.closeModal('create-user');
+        },
+      });
+      return;
+    }
+
     const updatedUser: UserUpdate = this.getChangedFields();
     if (Object.keys(updatedUser).length === 0) {
       this.modalService.closeModal('update-user');

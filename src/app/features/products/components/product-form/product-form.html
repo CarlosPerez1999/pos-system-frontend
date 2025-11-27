@@ -1,15 +1,58 @@
-<form [formGroup]="productForm" class="flex flex-col gap-4 ">
-  <div class="grid grid-cols-2  gap-4">
-    <app-input-form class=" col-span-2"  [control]="productForm.controls.name" inputName="name" label="Name"></app-input-form>
-    <app-input-form class=" col-span-2"  [control]="productForm.controls.description" inputName="description" label="Description" type="textarea"></app-input-form>
-    <app-input-form [control]="productForm.controls.price" inputName="price" label="Price" type="number"></app-input-form>
-    <app-input-form [control]="productForm.controls.imageUrl" inputName="imageUrl" label="Image URL"></app-input-form>
-    <app-input-form [control]="productForm.controls.sku" inputName="sku" label="SKU"></app-input-form>
-    <app-input-form [control]="productForm.controls.barcode" inputName="barcode" label="Barcode"></app-input-form>
-    <app-input-form [control]="productForm.controls.isActive" inputName="isActive" label="Active?" type="checkbox"></app-input-form>
+<form [formGroup]="productForm" class="flex flex-col gap-4">
+  <div class="grid grid-cols-2 gap-4">
+    <app-input-form
+      class="col-span-2"
+      [control]="productForm.controls.name"
+      inputName="name"
+      label="Name"
+    ></app-input-form>
+    <app-input-form
+      class="col-span-2"
+      [control]="productForm.controls.description"
+      inputName="description"
+      label="Description"
+      type="textarea"
+    ></app-input-form>
+    <app-input-form
+      [control]="productForm.controls.price"
+      inputName="price"
+      label="Price"
+      type="number"
+    ></app-input-form>
+    <app-input-form
+      [control]="productForm.controls.stock"
+      inputName="stock"
+      label="Stock"
+      type="number"
+    ></app-input-form>
+    <app-input-form
+      [control]="productForm.controls.imageUrl"
+      inputName="imageUrl"
+      label="Image URL"
+    ></app-input-form>
+    <app-input-form
+      [control]="productForm.controls.sku"
+      inputName="sku"
+      label="SKU"
+    ></app-input-form>
+    <app-input-form
+      [control]="productForm.controls.barcode"
+      inputName="barcode"
+      label="Barcode"
+    ></app-input-form>
+    <app-input-form
+      [control]="productForm.controls.isActive"
+      inputName="isActive"
+      label="Active?"
+      type="checkbox"
+    ></app-input-form>
   </div>
 
-  <app-button [disabled]="productForm.invalid" (clickEmitter)="onSubmit()" variant="primary">
-    <span label>{{product()? 'Update' : 'Save'}}</span>
+  <app-button
+    [disabled]="productForm.invalid"
+    (clickEmitter)="onSubmit()"
+    variant="primary"
+  >
+    <span label>{{ product() ? "Update" : "Save" }}</span>
   </app-button>
 </form>

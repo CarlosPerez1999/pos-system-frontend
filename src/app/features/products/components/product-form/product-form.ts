@@ -33,6 +33,10 @@ export class ProductForm {
       validators: [Validators.required, Validators.min(0)],
       nonNullable: true,
     }),
+    stock: this.fb.control<number | undefined>(undefined, {
+      validators: [Validators.required, Validators.min(0)],
+      nonNullable: true,
+    }),
     imageUrl: this.fb.control<string | null>(null),
     sku: this.fb.control<string>('', {
       validators: [Validators.required],
@@ -52,6 +56,7 @@ export class ProductForm {
         name: prod.name,
         description: prod.description,
         price: prod.price,
+        stock: prod.stock,
         imageUrl: prod.imageUrl,
         sku: prod.sku,
         barcode: prod.barcode,

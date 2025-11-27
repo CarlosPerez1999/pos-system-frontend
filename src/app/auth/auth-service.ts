@@ -48,6 +48,36 @@ export class AuthService {
   }
 
   /**
+   * Requests a password reset for the given email.
+   * @param email The user's email address.
+   * @returns An observable of the password reset response.
+   */
+  requestPasswordReset(email: string) {
+    return this.http.post(`${this.apiUrl}/forgot-password`, { email });
+  }
+
+  /**
+   * Changes the password for an authenticated user.
+   * Requires the user's old password for verification and the new password.
+   * This endpoint is protected and requires JWT authentication.
+   * @param data Object containing oldPassword and newPassword.
+   * @returns Observable that emits a success message on password change.
+   */
+  changePassword(data: { oldPassword: string; newPassword: string }) {
+    return this.http.post(`${this.apiUrl}/change-password`, data);
+  }
+
+  /**
+   * Resets the password using a token from the password reset email.
+   * The token is generated during the forgot-password flow and has a 15-minute expiration.
+   * @param data Object containing the reset token and new password.
+   * @returns Observable that emits a success message on password reset.
+   */
+  resetPassword(data: { token: string; newPassword: string }) {
+    return this.http.post(`${this.apiUrl}/reset-password`, data);
+  }
+
+  /**
    * Retrieves the current authentication token from local storage.
    * @returns The token string or null if not found.
    */

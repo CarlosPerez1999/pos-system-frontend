@@ -1,0 +1,62 @@
+<section class="w-full h-full px-5 pb-5 flex flex-col gap-6">
+  <!-- Header -->
+  <div class="flex flex-col gap-2">
+    <h1
+      class="text-3xl font-bold bg-gradient-to-r from-primary to-info bg-clip-text text-transparent"
+    >
+      Store Configuration
+    </h1>
+    <p class="text-sm text-muted">Manage your store settings and preferences</p>
+  </div>
+
+  <!-- Configuration Form Card -->
+  <div
+    class="w-full max-w-2xl bg-surface/80 backdrop-blur-xl p-8 rounded-2xl border border-primary/20 shadow-lg"
+  >
+    <form [formGroup]="configurationForm" class="flex flex-col gap-6">
+      <!-- Store Name Field -->
+      <div class="flex flex-col gap-2">
+        <label class="text-sm font-semibold text-foreground">Store Name</label>
+        <app-input-form
+          [control]="configurationForm.controls.storeName"
+          label="Enter store name"
+          inputName="storeName"
+          placeholder="My Store"
+        ></app-input-form>
+        <p class="text-xs text-muted">
+          This name will be displayed in the application header
+        </p>
+      </div>
+
+      <!-- Save Button -->
+      <div class="flex justify-end gap-4 mt-4">
+        <app-button
+          (clickEmitter)="onSave()"
+          [disabled]="configurationService.isLoading()"
+          variant="success"
+        >
+          <span label>
+            {{
+              configurationService.isLoading()
+                ? "Saving..."
+                : "Save Configuration"
+            }}
+          </span>
+        </app-button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Help Text -->
+  <div
+    class="flex items-start gap-3 p-4 bg-info/10 border border-info/20 rounded-lg max-w-2xl"
+  >
+    <div class="flex-1">
+      <p class="text-sm text-muted">
+        <span class="font-semibold text-info">Note:</span>
+        Changes will be applied immediately after saving. The store name will
+        appear in the header.
+      </p>
+    </div>
+  </div>
+</section>

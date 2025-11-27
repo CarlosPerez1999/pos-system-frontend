@@ -8,13 +8,13 @@ import {
 import { AppButton } from '../../../../shared/components/app-button/app-button';
 import { AppModal } from '../../../../shared/components/app-modal/app-modal';
 import { ModalService } from '../../../../core/services/modal-service';
-import { UserAddForm } from '../../../users/components/user-add-form/user-add-form';
 import { User } from '../../../../core/models/user.model';
 import { ToastService } from '../../../../core/services/toast-service';
+import { UserForm } from '../../../users/components/user-add-form/user-form';
 
 @Component({
   selector: 'app-users',
-  imports: [AppTable, AppButton, AppModal, UserAddForm, ReactiveFormsModule],
+  imports: [AppTable, AppButton, AppModal, UserForm, ReactiveFormsModule],
   templateUrl: './users.html',
 })
 /**

@@ -1,4 +1,4 @@
-import { Component, effect, inject, input } from '@angular/core';
+import { Component, effect, inject, input, computed } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UsersService } from '../../services/users-service';
 import {
@@ -12,20 +12,21 @@ import { ModalService } from '../../../../core/services/modal-service';
 import { ToastService } from '../../../../core/services/toast-service';
 
 @Component({
-  selector: 'user-add-form',
+  selector: 'user-form',
   imports: [ReactiveFormsModule, AppInputForm, AppButton],
-  templateUrl: './user-add-form.html',
+  templateUrl: './user-form.html',
 })
 /**
  * Form component for adding or editing users.
  * Handles form validation and submission.
  */
-export class UserAddForm {
+export class UserForm {
   usersService = inject(UsersService);
   modalService = inject(ModalService);
   toastService = inject(ToastService);
   user = input<User | null>();
   fb = inject(FormBuilder);
+  isEditMode = computed(() => !!this.user());
 
   userForm = this.fb.group({
     name: this.fb.control<string>('', {
@@ -62,17 +63,24 @@ export class UserAddForm {
     }
     const us = this.user();
     if (us) {
+      // En modo edición, remover el validador required del password
+      this.userForm.controls.password.clearValidators();
+      this.userForm.controls.password.updateValueAndValidity();
+
       this.userForm.patchValue({
         name: us.name,
         username: us.username,
         email: us.email,
-        password: us.password,
+        password: '',
         role: us.role,
         isActive: us.isActive,
       });
       this.userForm.markAsPristine();
       this.userForm.markAsUntouched();
     } else {
+      // En modo creación, establecer password como requerido
+      this.userForm.controls.password.setValidators([Validators.required]);
+      this.userForm.controls.password.updateValueAndValidity();
       this.userForm.reset();
     }
   });
@@ -99,13 +107,14 @@ export class UserAddForm {
               type: 'error',
               message: 'Failed to add user',
             });
+            this.modalService.closeModal('create-user');
           },
         });
       }
     }
     const updatedUser: UserUpdate = this.getChangedFields();
     if (Object.keys(updatedUser).length === 0) {
-      this.modalService.closeModal('create-user');
+      this.modalService.closeModal('update-user');
       this.toastService.showToast({
         type: 'info',
         message: 'The user was not updated as no changes were detected.',
@@ -114,18 +123,20 @@ export class UserAddForm {
     }
     this.usersService.updateUser(this.user()!.id, updatedUser).subscribe({
       next: () => {
-        this.modalService.closeModal('create-user');
+        this.modalService.closeModal('update-user');
         this.toastService.showToast({
           type: 'success',
           message: 'User updated successfully',
         });
         this.userForm.reset();
+        this.modalService.closeModal('edit-user');
       },
       error: (err) => {
         this.toastService.showToast({
           type: 'error',
           message: 'Failed to update user',
         });
+        this.modalService.closeModal('edit-user');
       },
     });
   }
@@ -141,6 +152,11 @@ export class UserAddForm {
     Object.keys(this.userForm.controls).forEach((key) => {
       const currentVal = currentValue[key as keyof typeof currentValue];
       const originalVal = originalValue[key as keyof typeof originalValue];
+
+      // En modo edición, no enviar password si está vacío
+      if (key === 'password' && this.isEditMode() && !currentVal) {
+        return;
+      }
 
       if (currentVal !== originalVal) {
         changes[key as keyof User] = currentVal as any;

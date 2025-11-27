@@ -1,25 +1,47 @@
 <header class="w-full mt-5 flex justify-center items-center">
   <div
-    class="flex items-center justify-between w-full mx-4 p-2 bg-gradient-to-r from-surface via-primary/5 to-surface rounded-full shadow-lg border border-primary/10">
+    class="flex items-center justify-between w-full mx-4 p-2 bg-gradient-to-r from-surface via-primary/5 to-surface rounded-full shadow-lg border border-primary/10"
+  >
     <div class="flex items-center gap-4">
-      <div class="size-11 sm:size-12 p-4 bg-gradient-to-br from-primary to-info rounded-full shadow-md"></div>
+      <div
+        class="size-11 sm:size-12 p-4 bg-gradient-to-br from-primary to-info rounded-full shadow-md"
+      ></div>
       <div class="flex flex-col items-start">
         <h2
-          class="text-base font-bold sm:text-lg bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent">
-          {{title}}</h2>
-        <p class="text-sm sm:text-base text-muted font-semibold">{{subTitle()}}</p>
+          class="text-base font-bold sm:text-lg bg-gradient-to-r from-foreground to-primary bg-clip-text text-transparent"
+        >
+          {{ title() }}
+        </h2>
+        <p class="text-sm sm:text-base text-muted font-semibold">
+          {{ subTitle() }}
+        </p>
       </div>
     </div>
 
     <div class="flex items-center gap-2">
-      <p class="hidden sm:inline-block text-muted">Welcome back</p>
-      <app-button (clickEmitter)="themeService.toggleTheme()" variant="ghost" size="icon">
+      <p class="hidden sm:inline-block text-muted">
+        Welcome back{{ currentUser() ? ", " + currentUser() : "" }}
+      </p>
+      <app-button
+        (clickEmitter)="themeService.toggleTheme()"
+        variant="ghost"
+        size="icon"
+      >
         <span icon-left class="flex">
           @if(themeService.isDarkMode()){
           <app-icon icon="line-md:sunny-filled" class="text-warning"></app-icon>
           }@else {
           <app-icon icon="line-md:moon-filled" class="text-info"></app-icon>
           }
+        </span>
+      </app-button>
+      <app-button
+        (clickEmitter)="openChangePasswordModal()"
+        variant="ghost"
+        size="icon"
+      >
+        <span icon-left>
+          <app-icon icon="mdi:lock-reset" class="text-primary"></app-icon>
         </span>
       </app-button>
       <app-button (clickEmitter)="logout()" variant="ghost" size="icon">

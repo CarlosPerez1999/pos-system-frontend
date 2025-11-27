@@ -4,6 +4,7 @@ import { ProductsPage } from './pages/products/products';
 import { InventoryPage } from './pages/inventory/inventory';
 import { DashboardPage } from './pages/dashboard/dashboard';
 import { UsersPage } from './pages/users/users';
+import { ConfigurationPage } from './pages/configuration/configuration';
 
 /**
  * Routes configuration for the Admin feature.
@@ -34,6 +35,10 @@ export const ADMIN_ROUTES: Routes = [
       {
         path: 'users',
         component: UsersPage,
+      },
+      {
+        path: 'configuration',
+        component: ConfigurationPage,
       },
       {
         path: '**',

@@ -32,6 +32,7 @@ export interface Me {
     role: 'seller' | 'admin';
     sub: string;
     username: string;
+    name: string;
   };
 }
 

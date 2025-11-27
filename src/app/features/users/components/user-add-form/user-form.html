@@ -15,11 +15,14 @@
       [control]="userForm.controls.email"
       label="Email"
     ></app-input-form>
+    @if (!isEditMode()) {
     <app-input-form
       inputName="password"
+      type="password"
       [control]="userForm.controls.password"
       label="Password"
     ></app-input-form>
+    }
     <app-input-form
       type="select"
       inputName="role"

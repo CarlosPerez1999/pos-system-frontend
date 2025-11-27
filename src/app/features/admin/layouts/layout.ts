@@ -5,10 +5,11 @@ import {
   TabMenuItem,
   AppTabMenu,
 } from '../../../shared/components/app-tab-menu/app-tab-menu';
+import { ChangePasswordModal } from '../../../shared/components/change-password-modal/change-password-modal';
 
 @Component({
   selector: 'admin-layout',
-  imports: [RouterOutlet, AppHeader, AppTabMenu],
+  imports: [RouterOutlet, AppHeader, AppTabMenu, ChangePasswordModal],
   templateUrl: './layout.html',
 })
 /**
@@ -39,7 +40,7 @@ export class AdminLayout {
     },
     {
       label: 'Configuration',
-      href: '/admin/config',
+      href: '/admin/configuration',
       iconName: 'mdi:gear',
     },
   ];

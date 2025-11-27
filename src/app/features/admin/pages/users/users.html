@@ -22,11 +22,8 @@
 </section>
 
 <app-modal type="info" modalId="create-user" title="Add user">
-  <user-add-form content></user-add-form>
-</app-modal>
-<app-modal type="info" modalId="create-user" title="Add user">
-  <user-add-form content [user]="selectedUser()"></user-add-form>
+  <user-form content [user]="selectedUser()"></user-form>
 </app-modal>
 <app-modal type="info" modalId="update-user" title="Update user">
-  <user-add-form content [user]="selectedUser()"></user-add-form>
+  <user-form content [user]="selectedUser()"></user-form>
 </app-modal>

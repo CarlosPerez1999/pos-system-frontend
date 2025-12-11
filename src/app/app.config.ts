@@ -12,6 +12,7 @@ import {
   withInterceptors,
 } from '@angular/common/http';
 import { authInterceptor } from './core/interceptors/auth-interceptor';
+import { tokenRefreshInterceptor } from './core/interceptors/token-refresh.interceptor';
 import { provideCharts, withDefaultRegisterables } from 'ng2-charts';
 
 export const appConfig: ApplicationConfig = {
@@ -19,7 +20,10 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes, withViewTransitions()),
-    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
+    provideHttpClient(
+      withFetch(), 
+      withInterceptors([authInterceptor, tokenRefreshInterceptor])
+    ),
     provideCharts(withDefaultRegisterables()),
   ],
 };

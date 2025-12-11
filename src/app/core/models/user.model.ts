@@ -20,6 +20,7 @@ export interface UserResponse {
 
 export interface authResponse {
   access_token: string;
+  refresh_token: string;
 }
 export interface UserCreate
   extends Omit<User, 'id' | 'createdAt' | 'updatedAt' | 'deletedAt'> {}
